@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using PokeManagementDAL.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,36 +9,45 @@ using System.Threading.Tasks;
 
 namespace PokeManagementDAL.Managers
 {
-    internal class GenericManager<T> : IManager<T> where T : class
+    public class GenericManager<T> : IManager<T> where T : class
     {
-        public T Create(T entity, out bool isSuccessful)
+        protected readonly PokeDbContext _ctx;
+        protected readonly DbSet<T> _dbSet;
+        public GenericManager(PokeDbContext ctx)
         {
-            throw new NotImplementedException();
+            _ctx = ctx;
+            _dbSet = ctx.Set<T>();
         }
-
+        public IQueryable<T> GetAll() => _dbSet;
+        public T? GetById(int id) => _dbSet.Find(id);
+        public T Create(T entity)
+        {
+            _dbSet.Add(entity);
+            return entity;
+        }
+        public T Update(T entity)
+        {
+            //_dbSet.Attach(entity);
+            //_dbSet.Entry(entity).State = EntityState.Modified;
+            _dbSet.Update(entity);
+            return entity;
+        }
         public bool DeleteById(int id)
         {
-            throw new NotImplementedException();
+            T? entity = GetById(id);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+                return _ctx.SaveChanges() > 0;
+            }
+            return false;
         }
+        public IQueryable<T> Filter(Expression<Func<T, bool>> filter) => _dbSet.Where(filter);
 
-        public IQueryable<T> Filter(Expression<Func<T, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IQueryable<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
 
-        public T? GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public T Update(T entity, out bool isSuccessful)
-        {
-            throw new NotImplementedException();
-        }
+
+
     }
 }
