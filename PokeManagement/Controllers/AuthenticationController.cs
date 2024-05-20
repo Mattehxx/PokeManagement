@@ -56,6 +56,8 @@ namespace PokeManagement.Controllers
 
             ApplicationUser user = new()
             {
+                Name = model.Username,
+                Surname = model.Surname,
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
@@ -84,6 +86,8 @@ namespace PokeManagement.Controllers
 
             ApplicationUser user = new()
             {
+                Name = model.Username,
+                Surname = model.Surname,
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
@@ -116,6 +120,8 @@ namespace PokeManagement.Controllers
 
             ApplicationUser user = new()
             {
+                Name = model.Username,
+                Surname = model.Surname,
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username

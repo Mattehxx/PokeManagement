@@ -9,6 +9,8 @@ namespace PokeManagementDAL.Auth
 {
     public class RegisterModel
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public string Username { get; set; }
         [EmailAddress]
         public string Email { get; set; }
