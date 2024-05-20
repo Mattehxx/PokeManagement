@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PokeManagementDAL.Data
 {
-    public  class Ingredient
+    public class Ingredient
     {
         public int IngredientId { get; set; }
         [MaxLength(50)]
