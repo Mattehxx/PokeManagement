@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace PokeManagementDAL.Managers
 {
-    public class OrderManager(PokeDbContext ctx) : GenericManager<Order>(ctx),IOrderManager
+    public class OrderManager(PokeDbContext ctx) : GenericManager<Order>(ctx), IOrderManager
     {
+        public bool ExecuteStoreProcedure()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

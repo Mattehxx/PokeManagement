@@ -9,5 +9,7 @@ namespace PokeManagementDAL.Managers
 {
     public interface IOrderManager : IManager<Order>
     {
+        //ADMIN
+        public bool ExecuteStoreProcedure();
     }
 }
