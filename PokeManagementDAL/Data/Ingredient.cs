@@ -18,6 +18,7 @@ namespace PokeManagementDAL.Data
         public bool Allegergen { get; set; }
         public double Calories {  get; set; }
         public bool IsDeleted { get; set; }
-        public int Type {  get; set; } 
+        public int IngredientTypeId {  get; set; }
+        public IngredientType? IngredientType { get; set; }
     }
 }

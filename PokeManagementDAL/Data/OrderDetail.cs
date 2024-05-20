@@ -9,11 +9,12 @@ namespace PokeManagementDAL.Data
     public class OrderDetail
     {
         public int OrderDetailId { get; set; }
-        public int OderdId { get; set; }
+        public int OrderdId { get; set; }
         public int ProductId { get; set; }
         public int Amount { get; set; }
         public double Price { get; set; }
-
-        public Order Order { get; set; }
+        public Order? Order { get; set; }
+        public Product? Product { get; set; }
+        public List<Personalization>? Personalizations { get; set; }
     }
 }

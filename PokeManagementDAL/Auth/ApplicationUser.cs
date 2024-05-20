@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using PokeManagementDAL.Data;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PokeManagementDAL.Auth
 {
@@ -9,5 +11,9 @@ namespace PokeManagementDAL.Auth
         public string Name { get; set; }
         [MaxLength(100)]
         public string Surname { get; set; }
+        [InverseProperty(nameof(Order.Mandator))]
+        public List<Order>? MandatorOrders { get; set; }
+        [InverseProperty(nameof(Order.Operator))]
+        public List<Order>? OperatorOrders { get; set; }
     }
 }

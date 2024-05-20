@@ -11,8 +11,8 @@ namespace PokeManagementDAL.Data
         public int ProductIngredientId { get; set; }
         public int ProductId { get; set; }
         public int IngredientId { get; set; }
+        public int Amount { get; set; }
         public Product? Product { get; set; }
         public Ingredient? Ingredient { get; set; }
-        public List<ProductIngredient>? ProductIngredients { get; set; }
     }
 }

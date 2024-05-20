@@ -9,8 +9,9 @@ namespace PokeManagementDAL.Data
 {
     public class OrderType
     {
-        public int OderTypeId { get; set; }
+        public int OrderTypeId { get; set; }
         [MaxLength(50)]
         public string Description { get; set; }
+        public List<Order>? Orders { get; set;}
     }
 }

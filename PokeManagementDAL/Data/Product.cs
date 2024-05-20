@@ -18,5 +18,7 @@ namespace PokeManagementDAL.Data
         public bool IsDeleted { get; set; }
         public int ProductTypeId { get; set; }
         public ProductType? ProductType { get; set; }
+        public List<OrderDetail>? OrderDetails { get; set; }
+        public List<ProductIngredient>? ProductIngredients { get; set; }
     }
 }

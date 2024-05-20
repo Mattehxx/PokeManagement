@@ -12,6 +12,6 @@ namespace PokeManagementDAL.Data
         public int IngredientTypeId { get; set; }
         [MaxLength(50)]
         public string Description { get; set; }
-        public List<Type>? Types { get; set; }
+        public List<Ingredient>? Ingredients { get; set; }
     }
 }
