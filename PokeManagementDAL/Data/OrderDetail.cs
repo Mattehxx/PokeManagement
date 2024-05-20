@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace PokeManagementDAL.Data
 {
-    internal class OrderDetail
+    public class OrderDetail
     {
+        public int OrderDetailId { get; set; }
+        public int OderdId { get; set; }
+        public int ProductId { get; set; }
+        public int Amount { get; set; }
+        public double Price { get; set; }
+
+        public Order Order { get; set; }
     }
 }

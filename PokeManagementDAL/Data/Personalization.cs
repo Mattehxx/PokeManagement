@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PokeManagementDAL.Data
 {
-    internal class Personalization
+    public class Personalization
     {
+        public int PersonalizationId { get; set; }
+        public int OrderDetailId { get; set; }
+        public int IngredientId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

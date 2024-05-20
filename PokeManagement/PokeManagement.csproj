@@ -21,4 +21,8 @@
     <ProjectReference Include="..\PokeManagementDAL\PokeManagementDAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
