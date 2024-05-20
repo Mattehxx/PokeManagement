@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokeManagementDAL.Data
 {
-    internal class Ingredient
+    public class Ingredient
     {
     }
 }
