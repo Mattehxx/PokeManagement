@@ -32,15 +32,15 @@ namespace PokeManagementDAL.Managers
             _dbSet.Update(entity);
             return entity;
         }
-        public bool DeleteById(int id)
+        public void DeleteById(int id)
         {
             T? entity = GetById(id);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
-                return _ctx.SaveChanges() > 0;
+                //return _ctx.SaveChanges() > 0;
             }
-            return false;
+            //return false;
         }
         public IQueryable<T> Filter(Expression<Func<T, bool>> filter) => _dbSet.Where(filter);
 

@@ -27,5 +27,26 @@ namespace PokeManagement.Controllers
             var prod = _managers.ProductManager.GetById(id);
             return prod == null ? BadRequest("product not found") : Ok(_mapper.ToModel(prod));
         }
+        [HttpPost,Route("Product/Add")]
+        public IActionResult Post([FromBody] ProductModel model)
+        {
+            _managers.ProductManager.Create(_mapper.ToEntity(model));
+            return _managers.Commit() ? Created() : BadRequest("product was not created");
+        }
+        [HttpDelete,Route("Product/Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            _managers.ProductManager.DeleteById(id);
+            return _managers.Commit() ? Ok() : BadRequest("product was not deleted");
+        }
+        [HttpPut,Route("Product/Edit/{id}")]
+        public IActionResult Put([FromBody]ProductModel model,int id)
+        {
+            if(model.Id != id)
+                model.Id = id;
+            _managers.ProductManager.Update(_mapper.ToEntity(model));
+            return _managers.Commit() ? Ok() : BadRequest("product was not modified");
+        }
+
     }
 }

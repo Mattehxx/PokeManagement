@@ -185,7 +185,12 @@ namespace PokeManagement.Models
         };
         public ApplicationUserModel ToModel(ApplicationUser entity) => new ApplicationUserModel
         {
-
+            Id = entity.Id,
+            Name = entity.Name,
+            Surname = entity.Surname,
+            Email = entity.Email!,
+            MandatorOrders = entity.MandatorOrders!.ConvertAll(ToModel),
+            OperatorOrders = entity.OperatorOrders!.ConvertAll(ToModel)
         };
         
         #endregion

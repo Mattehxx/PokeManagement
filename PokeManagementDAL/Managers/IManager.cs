@@ -13,7 +13,7 @@ namespace PokeManagementDAL.Managers
         public T? GetById(int id);
         public T Create(T entity);
         public T Update(T entity);
-        public bool DeleteById(int id);
+        public void DeleteById(int id);
         public IQueryable<T> Filter(Expression<Func<T, bool>> filter);
     }
 }
