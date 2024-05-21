@@ -12,11 +12,11 @@ namespace PokeManagement.Models
             Name = model.Name,
             Description = model.Description,
             IsDeleted = false,
-            Price = model.Price,
+            Price = model.ProductIngredients?.Sum(pi=>pi.Amount * (pi.Ingredient != null ? pi.Ingredient.AddictionalCost : 0)) ?? 0,
             ProductTypeId = model.ProductTypeId,
             OrderDetails = model.OrderDetails!.ConvertAll(ToEntity),
-            ProductType = ToEntity(model.ProductType!),
-            ProductIngredients = model.ProductIngredients!.ConvertAll(ToEntity)
+            ProductType = ToEntity(model.ProductType),
+            ProductIngredients = model.ProductIngredients?.ConvertAll(ToEntity)
         };
         public ProductType ToEntity(ProductTypeModel model) => new ProductType
         {

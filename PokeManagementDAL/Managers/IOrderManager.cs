@@ -15,17 +15,17 @@ namespace PokeManagementDAL.Managers
         #endregion
         //OPERATORE
         #region OPERATORE
-        public bool AddOrderDriveThrough();
+        public void AddOrderDriveThrough();
         public IQueryable<Order> GetOrdersToExec(); //ordinati per drive/asporto/in loco
-        public bool ExecOrder(int id); //evadere un ordine
-        public bool ExecMultipleOrders(List<Order> orders); //oppure list<int> ids
+        public void ExecOrder(int id); //evadere un ordine
+        public void ExecMultipleOrders(List<Order> orders); //oppure list<int> ids
         //opzionale
-        public bool PersonalizeOrderProd(Order order);
+        public void PersonalizeOrderProd(Order order);
         #endregion
         #region CUSTOMER/ANONYMOUS
         //public bool AddOrder   --> take away e in loco
         //opzionale:
-        public bool PersonalizeOrderProduct(int orderId,Product product);
+        public void PersonalizeOrderProduct(int orderId,Product product);
         #endregion
     }
 }

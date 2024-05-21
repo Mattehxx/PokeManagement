@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PokeManagementDAL.Managers
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public readonly PokeDbContext _ctx;
         public IProductIngredientManager ProductIngredientManager { get; private set; }

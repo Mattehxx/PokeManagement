@@ -9,7 +9,12 @@ namespace PokeManagementDAL.Managers
 {
     public class ProductManager(PokeDbContext ctx) : GenericManager<Product>(ctx), IProductManager
     {
-        public bool AddIngredients()
+        public void AddProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddProducts(List<Product> toAddProducts)
         {
             throw new NotImplementedException();
         }
@@ -19,12 +24,17 @@ namespace PokeManagementDAL.Managers
             throw new NotImplementedException();
         }
 
-        public bool LogicalDelete()
+        public void LogicalDelete(int id,bool confirm)
+        {
+            Filter(p=>p.ProductId == id).FirstOrDefault()!.IsDeleted = confirm;
+        }
+
+        public void RemoveProduct(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool RemoveIngredients()
+        public void RemoveProducts(List<Product> toRemoveProducts)
         {
             throw new NotImplementedException();
         }

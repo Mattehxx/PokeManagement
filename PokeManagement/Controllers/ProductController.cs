@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PokeManagement.Models;
 using PokeManagementDAL.Managers;
 
@@ -16,10 +17,11 @@ namespace PokeManagement.Controllers
             _managers = managers;
             _mapper = mapper;
         }
+        #region BASIC CRUD
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_managers.ProductManager.GetAll().ToList().ConvertAll(_mapper.ToModel)); 
+            return Ok(_managers.ProductManager.GetAll().Include(p=>p.ProductType)?.Include(p=>p.ProductIngredients).ThenInclude(pi=>pi.Ingredient).ToList().ConvertAll(_mapper.ToModel)); 
         }
         [HttpGet,Route("Product/{id}")]
         public IActionResult Get(int id)
@@ -47,6 +49,48 @@ namespace PokeManagement.Controllers
             _managers.ProductManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("product was not modified");
         }
+        #endregion
+
+        #region ADDITIONAL
+        //restore and delete (logical)
+        [HttpPut,Route("Product/LogicalDelete/{id}")]
+        public IActionResult LogicalDelete(int id)
+        {
+            try
+            {
+                _managers.ProductManager.LogicalDelete(id,true);
+                return _managers.Commit() ? Ok() : BadRequest();
+            }catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+        [HttpPut,Route("Product/LogicalRestore/{id}")]
+        public IActionResult LogicalRestore(int id)
+        {
+            try
+            {
+                _managers.ProductManager.LogicalDelete(id, false);
+                return _managers.Commit() ? Ok() : BadRequest();
+            }catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+        //Add and remove ingredients
+        //[HttpPost,Route("Product/AddIngredient/{id}")]
+        //public IActionResult AddIngredient(int id)
+        //{
+        //    try
+        //    {
+        //        _managers.ProductManager
+        //    }catch(Exception ex)
+        //    {
+        //        return Problem(ex.Message);
+        //    }
+        //}
+        
+        #endregion
 
     }
 }

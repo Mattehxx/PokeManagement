@@ -3,15 +3,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PokeManagement.Models;
 using PokeManagementDAL.Auth;
 using PokeManagementDAL.Data;
+using PokeManagementDAL.Managers;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddSqlServer<PokeDbContext>(builder.Configuration.GetConnectionString("Default"));
+builder.Services.AddSingleton<Mapper>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 //Swagger auth options
@@ -44,10 +50,6 @@ builder.Services.AddSwaggerGen(options =>
         }
     );
 });
-
-ConfigurationManager configuration = builder.Configuration;
-
-builder.Services.AddSqlServer<PokeDbContext>(builder.Configuration.GetConnectionString("Default"));
 
 //Aggiunta del servizio di autenticazione all'applicazione
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>() //Coppia di dependecy injection (utente - gruppo) di UserManager e RoleManager
