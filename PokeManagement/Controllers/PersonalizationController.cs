@@ -21,25 +21,25 @@ namespace PokeManagement.Controllers
         {
             return Ok(_managers.PersonalizationManager.GetAll().ToList().ConvertAll(_mapper.ToModel));
         }
-        [HttpGet, Route("Personalization/{id}")]
+        [HttpGet, Route("Get/{id}")]
         public IActionResult Get(int id)
         {
             var prod = _managers.PersonalizationManager.GetById(id);
             return prod == null ? BadRequest("personalization not found") : Ok(_mapper.ToModel(prod));
         }
-        [HttpPost, Route("Personalization/Add")]
+        [HttpPost, Route("Add")]
         public IActionResult Post([FromBody] PersonalizationModel model)
         {
             _managers.PersonalizationManager.Create(_mapper.ToEntity(model));
             return _managers.Commit() ? Created() : BadRequest("personalization was not created");
         }
-        [HttpDelete, Route("Personalization/Delete/{id}")]
+        [HttpDelete, Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {
             _managers.PersonalizationManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("personalization was not deleted");
         }
-        [HttpPut, Route("Personalization/Edit/{id}")]
+        [HttpPut, Route("Edit/{id}")]
         public IActionResult Put([FromBody] PersonalizationModel model, int id)
         {
             if (model.Id != id)

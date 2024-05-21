@@ -21,25 +21,25 @@ namespace PokeManagement.Controllers
         {
             return Ok(_managers.OrderManager.GetAll().ToList().ConvertAll(_mapper.ToModel));
         }
-        [HttpGet, Route("Order/{id}")]
+        [HttpGet, Route("Get/{id}")]
         public IActionResult Get(int id)
         {
             var prod = _managers.OrderManager.GetById(id);
             return prod == null ? BadRequest("Order not found") : Ok(_mapper.ToModel(prod));
         }
-        [HttpPost, Route("Order/Add")]
+        [HttpPost, Route("Add")]
         public IActionResult Post([FromBody] OrderModel model)
         {
             _managers.OrderManager.Create(_mapper.ToEntity(model));
             return _managers.Commit() ? Created() : BadRequest("Order was not created");
         }
-        [HttpDelete, Route("Order/Delete/{id}")]
+        [HttpDelete, Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {
             _managers.OrderManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("Order was not deleted");
         }
-        [HttpPut, Route("Order/Edit/{id}")]
+        [HttpPut, Route("Edit/{id}")]
         public IActionResult Put([FromBody] OrderModel model, int id)
         {
             if (model.Id != id)

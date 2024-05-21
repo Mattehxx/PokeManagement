@@ -23,25 +23,25 @@ namespace PokeManagement.Controllers
         {
             return Ok(_managers.ProductManager.GetAll().Include(p=>p.ProductType)?.Include(p=>p.ProductIngredients).ThenInclude(pi=>pi.Ingredient).ToList().ConvertAll(_mapper.ToModel)); 
         }
-        [HttpGet,Route("Product/{id}")]
+        [HttpGet,Route("Get/{id}")]
         public IActionResult Get(int id)
         {
             var prod = _managers.ProductManager.GetById(id);
             return prod == null ? BadRequest("product not found") : Ok(_mapper.ToModel(prod));
         }
-        [HttpPost,Route("Product/Add")]
+        [HttpPost,Route("Add")]
         public IActionResult Post([FromBody] ProductModel model)
         {
             _managers.ProductManager.Create(_mapper.ToEntity(model));
             return _managers.Commit() ? Created() : BadRequest("product was not created");
         }
-        [HttpDelete,Route("Product/Delete/{id}")]
+        [HttpDelete,Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {
             _managers.ProductManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("product was not deleted");
         }
-        [HttpPut,Route("Product/Edit/{id}")]
+        [HttpPut,Route("Edit/{id}")]
         public IActionResult Put([FromBody]ProductModel model,int id)
         {
             if(model.Id != id)
@@ -53,7 +53,7 @@ namespace PokeManagement.Controllers
 
         #region ADDITIONAL
         //restore and delete (logical)
-        [HttpPut,Route("Product/LogicalDelete/{id}")]
+        [HttpPut,Route("LogicalDelete/{id}")]
         public IActionResult LogicalDelete(int id)
         {
             try
@@ -65,7 +65,7 @@ namespace PokeManagement.Controllers
                 return Problem(ex.Message);
             }
         }
-        [HttpPut,Route("Product/LogicalRestore/{id}")]
+        [HttpPut,Route("LogicalRestore/{id}")]
         public IActionResult LogicalRestore(int id)
         {
             try

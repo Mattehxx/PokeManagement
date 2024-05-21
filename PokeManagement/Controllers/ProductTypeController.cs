@@ -21,25 +21,25 @@ namespace PokeManagement.Controllers
         {
             return Ok(_managers.ProductTypeManager.GetAll().ToList().ConvertAll(_mapper.ToModel));
         }
-        [HttpGet, Route("ProductType/{id}")]
+        [HttpGet, Route("Get/{id}")]
         public IActionResult Get(int id)
         {
             var prodType = _managers.ProductTypeManager.GetById(id);
             return prodType == null ? BadRequest("product type not found") : Ok(_mapper.ToModel(prodType));
         }
-        [HttpPost, Route("ProductType/Add")]
+        [HttpPost, Route("Add")]
         public IActionResult Post([FromBody] ProductTypeModel model)
         {
             _managers.ProductTypeManager.Create(_mapper.ToEntity(model));
             return _managers.Commit() ? Created() : BadRequest("product type was not created");
         }
-        [HttpDelete, Route("ProductType/Delete/{id}")]
+        [HttpDelete, Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {
             _managers.ProductTypeManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("product type was not deleted");
         }
-        [HttpPut, Route("ProductType/Edit/{id}")]
+        [HttpPut, Route("Edit/{id}")]
         public IActionResult Put([FromBody] ProductTypeModel model, int id)
         {
             if (model.Id != id)

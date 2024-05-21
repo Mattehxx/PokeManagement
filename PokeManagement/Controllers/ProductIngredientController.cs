@@ -21,25 +21,25 @@ namespace PokeManagement.Controllers
         {
             return Ok(_managers.ProductIngredientManager.GetAll().ToList().ConvertAll(_mapper.ToModel));
         }
-        [HttpGet, Route("Ingredient/{id}")]
+        [HttpGet, Route("Get/{id}")]
         public IActionResult Get(int id)
         {
             var prod = _managers.ProductIngredientManager.GetById(id);
             return prod == null ? BadRequest("ingredient not found") : Ok(_mapper.ToModel(prod));
         }
-        [HttpPost, Route("Ingredient/Add")]
+        [HttpPost, Route("Add")]
         public IActionResult Post([FromBody] ProductIngredientModel model)
         {
             _managers.ProductIngredientManager.Create(_mapper.ToEntity(model));
             return _managers.Commit() ? Created() : BadRequest("ingredient was not created");
         }
-        [HttpDelete, Route("Ingredient/Delete/{id}")]
+        [HttpDelete, Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {
             _managers.ProductIngredientManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("ingredient was not deleted");
         }
-        [HttpPut, Route("Ingredient/Edit/{id}")]
+        [HttpPut, Route("Edit/{id}")]
         public IActionResult Put([FromBody] ProductIngredientModel model, int id)
         {
             if (model.Id != id)
