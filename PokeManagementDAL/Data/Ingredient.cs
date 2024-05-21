@@ -20,5 +20,7 @@ namespace PokeManagementDAL.Data
         public bool IsDeleted { get; set; }
         public int IngredientTypeId {  get; set; }
         public IngredientType? IngredientType { get; set; }
+        public List<DefaultPersonalization>? DefaultPersonalizations { get; set; }
+        public List<ProductIngredient>? ProductIngredients { get; set; }
     }
 }

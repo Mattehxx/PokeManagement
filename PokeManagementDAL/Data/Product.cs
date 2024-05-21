@@ -20,5 +20,6 @@ namespace PokeManagementDAL.Data
         public ProductType? ProductType { get; set; }
         public List<OrderDetail>? OrderDetails { get; set; }
         public List<ProductIngredient>? ProductIngredients { get; set; }
+        public List<DefaultPersonalization>? DefaultPersonalizations { get; set; }
     }
 }

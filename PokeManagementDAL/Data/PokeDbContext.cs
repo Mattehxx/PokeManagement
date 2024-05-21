@@ -37,5 +37,6 @@ namespace PokeManagementDAL.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductIngredient> ProductIngredients { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<DefaultPersonalization> DefaultPersonalizations { get; set; }
     }
 }

@@ -10,9 +10,9 @@ namespace PokeManagementDAL.Data
     {
         public int PersonalizationId { get; set; }
         public int OrderDetailId { get; set; }
-        public int IngredientId { get; set; }
+        public int DefaultPersonalizationId { get; set; }
         public bool IsDeleted { get; set; }
         public OrderDetail? OrderDetail { get; set; }
-        public Ingredient? Ingredient { get; set; }
+        public DefaultPersonalization? DefaultPersonalization { get; set; }
     }
 }

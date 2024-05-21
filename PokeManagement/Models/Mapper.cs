@@ -1,4 +1,5 @@
-﻿using PokeManagementDAL.Auth;
+﻿using Microsoft.IdentityModel.Tokens;
+using PokeManagementDAL.Auth;
 using PokeManagementDAL.Data;
 
 namespace PokeManagement.Models
@@ -14,7 +15,7 @@ namespace PokeManagement.Models
             IsDeleted = false,
             Price = model.ProductIngredients?.Sum(pi=>pi.Amount * (pi.Ingredient != null ? pi.Ingredient.AddictionalCost : 0)) ?? 0,
             ProductTypeId = model.ProductTypeId,
-            OrderDetails = model.OrderDetails!.ConvertAll(ToEntity),
+            OrderDetails = model.OrderDetails?.ConvertAll(ToEntity),
             ProductType = ToEntity(model.ProductType),
             ProductIngredients = model.ProductIngredients?.ConvertAll(ToEntity)
         };
@@ -22,7 +23,7 @@ namespace PokeManagement.Models
         {
             ProductTypeId = model.Id,
             Description = model.Description,
-            Products = model.Products!.ConvertAll(ToEntity)
+            Products = model.Products?.ConvertAll(ToEntity)
         };
         public ProductIngredient ToEntity(ProductIngredientModel model) => new ProductIngredient
         {
@@ -37,16 +38,16 @@ namespace PokeManagement.Models
         {
             PersonalizationId = model.Id,
             IsDeleted = false,
-            IngredientId = model.IngredientId,
+            DefaultPersonalizationId = model.DefaultPersonalizationId,
             OrderDetailId = model.OrderDetailId,
             OrderDetail = ToEntity(model.OrderDetail!),
-            Ingredient = ToEntity(model.Ingredient!)
+            DefaultPersonalization = ToEntity(model.DefaultPersonalization!)
         };
         public OrderType ToEntity(OrderTypeModel model) => new OrderType
         {
             OrderTypeId = model.Id,
             Description = model.Description,
-            Orders = model.Orders!.ConvertAll(ToEntity)
+            Orders = model.Orders?.ConvertAll(ToEntity)
         };
         public Order ToEntity(OrderModel model) => new Order
         {
@@ -71,13 +72,13 @@ namespace PokeManagement.Models
             ProductId = model.ProductId,
             Order = ToEntity(model.Order!),
             Product = ToEntity(model.Product!),
-            Personalizations = model.Personalizations!.ConvertAll(ToEntity)
+            Personalizations = model.Personalizations?.ConvertAll(ToEntity)
         };
         public IngredientType ToEntity(IngredientTypeModel model) => new IngredientType
         {
             IngredientTypeId = model.Id,
             Description = model.Description,
-            Ingredients = model.Ingredients!.ConvertAll(ToEntity)
+            Ingredients = model.Ingredients?.ConvertAll(ToEntity)
         };
         public Ingredient ToEntity(IngredientModel model) => new Ingredient
         {
@@ -90,6 +91,16 @@ namespace PokeManagement.Models
             IsDeleted = model.IsDeleted,
             IngredientTypeId = model.IngredientTypeId,
             IngredientType = ToEntity(model.IngredientType!)
+        };
+        public DefaultPersonalization ToEntity(DefaultPersonalizationModel model) => new DefaultPersonalization
+        {
+            DefaultPersonalizationId = model.Id,
+            MaxAllowed = model.MaxAllowed,
+            IngredientId = model.IngredientId,
+            ProductId = model.ProductId,
+            Ingredient = ToEntity(model.Ingredient),
+            Personalizations = model.Personalizations?.ConvertAll(ToEntity),
+            Product = ToEntity(model.Product)
         };
         public ApplicationUser ToEntity(ApplicationUserModel model) => new ApplicationUser
         {
@@ -107,14 +118,14 @@ namespace PokeManagement.Models
             Price = entity.Price,
             ProductTypeId = entity.ProductId,
             ProductType = ToModel(entity.ProductType!),
-            OrderDetails = entity.OrderDetails!.ConvertAll(ToModel),
-            ProductIngredients = entity.ProductIngredients!.ConvertAll(ToModel)
+            OrderDetails = entity.OrderDetails?.ConvertAll(ToModel),
+            ProductIngredients = entity.ProductIngredients?.ConvertAll(ToModel)
         };
         public ProductTypeModel ToModel(ProductType entity) => new ProductTypeModel
         {
             Id = entity.ProductTypeId,
             Description = entity.Description,
-            Products = entity.Products!.ConvertAll(ToModel)
+            Products = entity.Products?.ConvertAll(ToModel)
         };
         public ProductIngredientModel ToModel(ProductIngredient entity) => new ProductIngredientModel
         {
@@ -129,16 +140,16 @@ namespace PokeManagement.Models
         {
             Id = entity.PersonalizationId,
             IsDeleted = entity.IsDeleted,
-            IngredientId = entity.IngredientId,
+            DefaultPersonalizationId = entity.DefaultPersonalizationId,
             OrderDetailId = entity.OrderDetailId,
             OrderDetail = ToModel(entity.OrderDetail!),
-            Ingredient = ToModel(entity.Ingredient!)
+            DefaultPersonalization = ToModel(entity.DefaultPersonalization)
         };
         public OrderTypeModel ToModel(OrderType entity) => new OrderTypeModel
         {
             Id = entity.OrderTypeId,
             Description = entity.Description,
-            Orders = entity.Orders!.ConvertAll(ToModel)
+            Orders = entity.Orders?.ConvertAll(ToModel)
         };
         public OrderModel ToModel(Order entity) => new OrderModel
         {
@@ -163,13 +174,13 @@ namespace PokeManagement.Models
             OrderdId = entity.OrderdId,
             Order = ToModel(entity.Order!),
             Product = ToModel(entity.Product!),
-            Personalizations = entity.Personalizations!.ConvertAll(ToModel)
+            Personalizations = entity.Personalizations?.ConvertAll(ToModel)
         };
         public IngredientTypeModel ToModel(IngredientType entity) => new IngredientTypeModel
         {
             Id = entity.IngredientTypeId,
             Description = entity.Description,
-            Ingredients = entity.Ingredients.ConvertAll(ToModel)
+            Ingredients = entity.Ingredients?.ConvertAll(ToModel)
         };
         public IngredientModel ToModel(Ingredient entity) => new IngredientModel
         {
@@ -189,8 +200,18 @@ namespace PokeManagement.Models
             Name = entity.Name,
             Surname = entity.Surname,
             Email = entity.Email!,
-            MandatorOrders = entity.MandatorOrders!.ConvertAll(ToModel),
-            OperatorOrders = entity.OperatorOrders!.ConvertAll(ToModel)
+            MandatorOrders = entity.MandatorOrders?.ConvertAll(ToModel),
+            OperatorOrders = entity.OperatorOrders?.ConvertAll(ToModel)
+        };
+        public DefaultPersonalizationModel ToModel(DefaultPersonalization entity) => new DefaultPersonalizationModel
+        {
+            Id = entity.DefaultPersonalizationId,
+            MaxAllowed = entity.MaxAllowed,
+            ProductId = entity.ProductId,
+            IngredientId = entity.IngredientId,
+            Ingredient = ToModel(entity.Ingredient),
+            Product = ToModel(entity.Product),
+            Personalizations = entity.Personalizations?.ConvertAll(ToModel)
         };
         
         #endregion
