@@ -11,6 +11,7 @@ namespace PokeManagement.Models
         [MaxLength(3)]
         public string ReservationCode { get; set; }
         public DateTime? InsertDate { get; set; }
+        public DateTime? ExecDate { get; set; }
         public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; }
         public int OrderTypeId { get; set; }

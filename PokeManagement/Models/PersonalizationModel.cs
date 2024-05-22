@@ -6,9 +6,9 @@ namespace PokeManagement.Models
     {
         public int Id { get; set; }
         public int OrderDetailId { get; set; }
-        public int DefaultPersonalizationId { get; set; }
-        public bool IsDeleted { get; set; }
+        public int ProductIngredientId { get; set; }
+        public bool IsRemoved { get; set; }
         public OrderDetailModel? OrderDetail { get; set; }
-        public DefaultPersonalizationModel? DefaultPersonalization { get; set; }
+        public ProductIngredientModel? ProductIngredient { get; set; }
     }
 }

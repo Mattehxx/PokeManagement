@@ -78,14 +78,14 @@ builder.Services.AddAuthentication(options =>
 
 //CORS
 const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-//var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 
 builder.Services.AddCors(o =>
 {
     o.AddPolicy(MyAllowSpecificOrigins, b =>
     {
-        //b.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader();
-        b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        b.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader();
+        //b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
 });
 

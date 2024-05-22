@@ -16,5 +16,7 @@ namespace PokeManagement.Models
         public ProductTypeModel? ProductType { get; set; }
         public List<OrderDetailModel>? OrderDetails { get; set; }
         public List<ProductIngredientModel>? ProductIngredients { get; set; }
+        //solo per il modello (default personalization) -> senza gli ingredienti presenti nel prodotto
+        //public List<SpecificPersonalization>? specificPersonalizations { get; set; }
     }
 }

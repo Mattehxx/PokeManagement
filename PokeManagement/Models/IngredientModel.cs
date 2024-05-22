@@ -16,5 +16,6 @@ namespace PokeManagement.Models
         public bool IsDeleted { get; set; }
         public int IngredientTypeId { get; set; }
         public IngredientTypeModel? IngredientType { get; set; }
+        public List<ProductIngredientModel>? ProductIngredients { get; set; }
     }
 }
