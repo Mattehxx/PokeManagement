@@ -24,6 +24,11 @@ namespace PokeManagementDAL.Managers
             throw new NotImplementedException();
         }
 
+        public IQueryable<Product>? GetProdByCategory(int categoryId)
+        {
+            return Filter(p=>p.ProductTypeId == categoryId);
+        }
+
         public void LogicalDelete(int id,bool confirm)
         {
             Filter(p=>p.ProductId == id).FirstOrDefault()!.IsDeleted = confirm;

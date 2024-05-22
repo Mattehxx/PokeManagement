@@ -11,13 +11,13 @@ namespace PokeManagementDAL.Managers
     {
         //ADMIN
         #region ADMIN
-        public bool ExecuteStoreProcedure(); // aggiornare storico ordini
+        public bool ExecuteStoreProcedure(DateTime start, DateTime end); // aggiornare storico ordini
         #endregion
         //OPERATORE
         #region OPERATORE
-        public void AddOrderDriveThrough();
+        public void AddOrderDriveThrough(Order order);
         public IQueryable<Order> GetOrdersToExec(); //ordinati per drive/asporto/in loco
-        public void ExecOrder(int id); //evadere un ordine
+        public bool ExecOrder(int id); //evadere un ordine
         public void ExecMultipleOrders(List<Order> orders); //oppure list<int> ids
         //opzionale
         public void PersonalizeOrderProd(Order order);

@@ -89,7 +89,12 @@ namespace PokeManagement.Controllers
         //        return Problem(ex.Message);
         //    }
         //}
-        
+        [HttpGet,Route("GetByCategoryId/{catId}")]
+        public IActionResult GetByCat(int catId)
+        {
+            var prod = _managers.ProductManager.GetProdByCategory(catId);
+            return prod == null ? BadRequest() : Ok(prod.ToList());
+        }
         #endregion
 
     }

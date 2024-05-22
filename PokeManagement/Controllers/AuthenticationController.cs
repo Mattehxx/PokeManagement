@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -42,7 +43,8 @@ namespace PokeManagement.Controllers
             return Ok(new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
+                expiration = token.ValidTo,
+                UserRole = userRoles[0]
             });
         }
 
@@ -75,7 +77,7 @@ namespace PokeManagement.Controllers
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
-
+        //[Authorize(Roles = ApplicationRoles.Admin)]
         [HttpPost]
         [Route("register-operator")]
         public async Task<IActionResult> RegisterOperator([FromBody] RegisterModel model)
@@ -99,17 +101,17 @@ namespace PokeManagement.Controllers
 
             if (!await _roleManager.RoleExistsAsync(ApplicationRoles.Operator))
                 await _roleManager.CreateAsync(new IdentityRole(ApplicationRoles.Operator));
-            if (!await _roleManager.RoleExistsAsync(ApplicationRoles.Customer))
-                await _roleManager.CreateAsync(new IdentityRole(ApplicationRoles.Customer));
+            //if (!await _roleManager.RoleExistsAsync(ApplicationRoles.Customer))
+            //    await _roleManager.CreateAsync(new IdentityRole(ApplicationRoles.Customer));
 
             if (await _roleManager.RoleExistsAsync(ApplicationRoles.Operator))
                 await _userManager.AddToRoleAsync(user, ApplicationRoles.Operator);
-            if (await _roleManager.RoleExistsAsync(ApplicationRoles.Customer))
-                await _userManager.AddToRoleAsync(user, ApplicationRoles.Customer);
+            //if (await _roleManager.RoleExistsAsync(ApplicationRoles.Customer))
+            //    await _userManager.AddToRoleAsync(user, ApplicationRoles.Customer);
 
             return Ok(new Response { Status = "Success", Message = "Operator created successfully!" });
         }
-
+        //[Authorize(Roles = ApplicationRoles.Admin)]
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
@@ -133,17 +135,17 @@ namespace PokeManagement.Controllers
 
             if (!await _roleManager.RoleExistsAsync(ApplicationRoles.Admin))
                 await _roleManager.CreateAsync(new IdentityRole(ApplicationRoles.Admin));
-            if (!await _roleManager.RoleExistsAsync(ApplicationRoles.Operator))
-                await _roleManager.CreateAsync(new IdentityRole(ApplicationRoles.Operator));
-            if (!await _roleManager.RoleExistsAsync(ApplicationRoles.Customer))
-                await _roleManager.CreateAsync(new IdentityRole(ApplicationRoles.Customer));
+            //if (!await _roleManager.RoleExistsAsync(ApplicationRoles.Operator))
+            //    await _roleManager.CreateAsync(new IdentityRole(ApplicationRoles.Operator));
+            //if (!await _roleManager.RoleExistsAsync(ApplicationRoles.Customer))
+            //    await _roleManager.CreateAsync(new IdentityRole(ApplicationRoles.Customer));
 
             if (await _roleManager.RoleExistsAsync(ApplicationRoles.Admin))
                 await _userManager.AddToRoleAsync(user, ApplicationRoles.Admin);
-            if (await _roleManager.RoleExistsAsync(ApplicationRoles.Operator))
-                await _userManager.AddToRoleAsync(user, ApplicationRoles.Operator);
-            if (await _roleManager.RoleExistsAsync(ApplicationRoles.Customer))
-                await _userManager.AddToRoleAsync(user, ApplicationRoles.Customer);
+            //if (await _roleManager.RoleExistsAsync(ApplicationRoles.Operator))
+            //    await _userManager.AddToRoleAsync(user, ApplicationRoles.Operator);
+            //if (await _roleManager.RoleExistsAsync(ApplicationRoles.Customer))
+            //    await _userManager.AddToRoleAsync(user, ApplicationRoles.Customer);
 
             return Ok(new Response { Status = "Success", Message = "Admin created successfully!" });
         }
