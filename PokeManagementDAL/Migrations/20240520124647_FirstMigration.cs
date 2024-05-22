@@ -98,7 +98,7 @@ namespace PokeManagementDAL.Migrations
                     IngredientId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    AddictionalCost = table.Column<double>(type: "float", nullable: false),
+                    AdditionalCost = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Allegergen = table.Column<bool>(type: "bit", nullable: false),
                     Calories = table.Column<double>(type: "float", nullable: false),

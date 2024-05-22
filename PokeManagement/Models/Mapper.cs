@@ -13,7 +13,7 @@ namespace PokeManagement.Models
             Name = model.Name,
             Description = model.Description,
             IsDeleted = false,
-            Price = model.ProductIngredients?.Sum(pi=>pi.Amount * (pi.Ingredient != null ? pi.Ingredient.AddictionalCost : 0)) ?? 0,
+            Price = model.ProductIngredients?.Sum(pi=>pi.Amount * (pi.Ingredient != null ? pi.Ingredient.AdditionalCost : 0)) ?? 0,
             ProductTypeId = model.ProductTypeId,
             OrderDetails = model.OrderDetails?.ConvertAll(ToEntity),
             ProductType = model.ProductType != null ? ToEntity(model.ProductType) : null,
@@ -87,8 +87,8 @@ namespace PokeManagement.Models
         public Ingredient ToEntity(IngredientModel model) => new Ingredient
         {
             IngredientId = model.Id,
-            AddictionalCost = model.AddictionalCost,
-            Allegergen = model.Allegergen,
+            AdditionalCost = model.AdditionalCost,
+            Allergen = model.Allergen,
             Description = model.Description,
             Calories = model.Calories,
             Name = model.Name,
@@ -196,8 +196,8 @@ namespace PokeManagement.Models
         public IngredientModel ToModel(Ingredient entity) => new IngredientModel
         {
             Id = entity.IngredientId,
-            AddictionalCost = entity.AddictionalCost,
-            Allegergen = entity.Allegergen,
+            AdditionalCost = entity.AdditionalCost,
+            Allergen = entity.Allergen,
             Description = entity.Description,
             IsDeleted = entity.IsDeleted,
             Calories = entity.Calories,

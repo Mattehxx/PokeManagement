@@ -8,10 +8,10 @@ namespace PokeManagement.Models
         public int Id { get; set; }
         [MaxLength(50)]
         public string Name { get; set; }
-        public double AddictionalCost { get; set; }
+        public double AdditionalCost { get; set; }
         [MaxLength(200)]
         public string Description { get; set; }
-        public bool Allegergen { get; set; }
+        public bool Allergen { get; set; }
         public double Calories { get; set; }
         public bool IsDeleted { get; set; }
         public int IngredientTypeId { get; set; }

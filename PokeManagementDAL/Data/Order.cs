@@ -28,5 +28,6 @@ namespace PokeManagementDAL.Data
         public ApplicationUser? Mandator { get; set; }
         [ForeignKey(nameof(OperatorId))]
         public ApplicationUser? Operator { get; set; }
+        public List<OrderDetail>? Details { get; set; }
     }
 }

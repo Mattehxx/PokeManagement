@@ -241,7 +241,7 @@ namespace PokeManagementDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IngredientId"));
 
-                    b.Property<double>("AddictionalCost")
+                    b.Property<double>("AdditionalCost")
                         .HasColumnType("float");
 
                     b.Property<bool>("Allegergen")

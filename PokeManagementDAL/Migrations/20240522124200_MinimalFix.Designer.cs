@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokeManagementDAL.Data;
 
@@ -11,9 +12,11 @@ using PokeManagementDAL.Data;
 namespace PokeManagementDAL.Migrations
 {
     [DbContext(typeof(PokeDbContext))]
-    partial class PokeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240522124200_MinimalFix")]
+    partial class MinimalFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,7 +244,7 @@ namespace PokeManagementDAL.Migrations
                     b.Property<double>("AdditionalCost")
                         .HasColumnType("float");
 
-                    b.Property<bool>("Allergen")
+                    b.Property<bool>("Allegergen")
                         .HasColumnType("bit");
 
                     b.Property<double>("Calories")
