@@ -16,7 +16,7 @@ namespace PokeManagement.Models
             Price = model.ProductIngredients?.Sum(pi=>pi.Amount * (pi.Ingredient != null ? pi.Ingredient.AddictionalCost : 0)) ?? 0,
             ProductTypeId = model.ProductTypeId,
             OrderDetails = model.OrderDetails?.ConvertAll(ToEntity),
-            ProductType = ToEntity(model.ProductType),
+            ProductType = model.ProductType != null ? ToEntity(model.ProductType) : null,
             ProductIngredients = model.ProductIngredients?.ConvertAll(ToEntity)
         };
         public ProductType ToEntity(ProductTypeModel model) => new ProductType
@@ -34,8 +34,8 @@ namespace PokeManagement.Models
             MaxAllowed = model.MaxAllowed,
             IsIncluded = model.IsIncluded,
             Personalizations = model.Personalizations?.ConvertAll(ToEntity),
-            Ingredient = ToEntity(model.Ingredient),
-            Product = ToEntity(model.Product)
+            Ingredient = model.Ingredient != null ? ToEntity(model.Ingredient) : null,
+            Product = model.Product != null ? ToEntity(model.Product) : null
         };
         public Personalization ToEntity(PersonalizationModel model) => new Personalization
         {
@@ -44,7 +44,7 @@ namespace PokeManagement.Models
             OrderDetailId = model.OrderDetailId,
             ProductIngredientId = model.ProductIngredientId,
             OrderDetail = ToEntity(model.OrderDetail!),
-            ProductIngredient = ToEntity(model.ProductIngredient)
+            ProductIngredient = model.ProductIngredient != null ? ToEntity(model.ProductIngredient) : null
         };
         public OrderType ToEntity(OrderTypeModel model) => new OrderType
         {
@@ -63,9 +63,9 @@ namespace PokeManagement.Models
             OperatorId = model.OperatorId,
             OrderTypeId = model.OrderTypeId,
             ExecDate = model.ExecDate,
-            Mandator = ToEntity(model.Mandator),
-            Operator = ToEntity(model.Operator),
-            OrderType = ToEntity(model.OrderType)
+            Mandator = model.Mandator != null ? ToEntity(model.Mandator) : null,
+            Operator = model.Operator != null ? ToEntity(model.Operator) : null,
+            OrderType = model.OrderType != null ? ToEntity(model.OrderType) : null
         };
         public OrderDetail ToEntity(OrderDetailModel model) => new OrderDetail
         {
@@ -74,8 +74,8 @@ namespace PokeManagement.Models
             Price = model.Price,
             OrderdId = model.OrderdId,
             ProductId = model.ProductId,
-            Order = ToEntity(model.Order),
-            Product = ToEntity(model.Product),
+            Order = model.Order != null ? ToEntity(model.Order) : null,
+            Product = model.Product != null ? ToEntity(model.Product) : null,
             Personalizations = model.Personalizations?.ConvertAll(ToEntity)
         };
         public IngredientType ToEntity(IngredientTypeModel model) => new IngredientType
@@ -94,7 +94,7 @@ namespace PokeManagement.Models
             Name = model.Name,
             IsDeleted = model.IsDeleted,
             IngredientTypeId = model.IngredientTypeId,
-            IngredientType = ToEntity(model.IngredientType),
+            IngredientType = model.IngredientType != null ? ToEntity(model.IngredientType) : null,
             ProductIngredients = model.ProductIngredients?.ConvertAll(ToEntity)
         };
         //public DefaultPersonalization ToEntity(DefaultPersonalizationModel model) => new DefaultPersonalization
