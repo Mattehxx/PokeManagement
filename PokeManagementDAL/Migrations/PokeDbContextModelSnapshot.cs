@@ -267,7 +267,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasIndex("IngredientTypeId");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("PokeManagementDAL.Data.IngredientType", b =>
@@ -285,7 +285,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasKey("IngredientTypeId");
 
-                    b.ToTable("IngredientTypes");
+                    b.ToTable("IngredientTypes", (string)null);
                 });
 
             modelBuilder.Entity("PokeManagementDAL.Data.Order", b =>
@@ -333,7 +333,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasIndex("OrderTypeId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("PokeManagementDAL.Data.OrderDetail", b =>
@@ -365,7 +365,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("PokeManagementDAL.Data.OrderType", b =>
@@ -383,7 +383,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasKey("OrderTypeId");
 
-                    b.ToTable("OrderTypes");
+                    b.ToTable("OrderTypes", (string)null);
                 });
 
             modelBuilder.Entity("PokeManagementDAL.Data.Personalization", b =>
@@ -409,7 +409,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasIndex("ProductIngredientId");
 
-                    b.ToTable("Personalizations");
+                    b.ToTable("Personalizations", (string)null);
                 });
 
             modelBuilder.Entity("PokeManagementDAL.Data.Product", b =>
@@ -443,7 +443,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("PokeManagementDAL.Data.ProductIngredient", b =>
@@ -475,7 +475,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductIngredients");
+                    b.ToTable("ProductIngredients", (string)null);
                 });
 
             modelBuilder.Entity("PokeManagementDAL.Data.ProductType", b =>
@@ -493,7 +493,7 @@ namespace PokeManagementDAL.Migrations
 
                     b.HasKey("ProductTypeId");
 
-                    b.ToTable("ProductTypes");
+                    b.ToTable("ProductTypes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

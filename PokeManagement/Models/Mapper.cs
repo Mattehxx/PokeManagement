@@ -123,7 +123,7 @@ namespace PokeManagement.Models
             Description = entity.Description,
             Name = entity.Name,
             Price = entity.Price,
-            ProductTypeId = entity.ProductId,
+            ProductTypeId = entity.ProductTypeId,
             ProductType = entity.ProductType != null ? ToBasicModel(entity.ProductType) : null,
             OrderDetails = entity.OrderDetails?.ConvertAll(ToBasicModel),
             ProductIngredients = entity.ProductIngredients?.ConvertAll(ToBasicModel)
@@ -248,7 +248,9 @@ namespace PokeManagement.Models
             Id = entity.ProductIngredientId,
             Amount = entity.Amount,
             IsIncluded = entity.IsIncluded,
-            MaxAllowed = entity.MaxAllowed
+            MaxAllowed = entity.MaxAllowed,
+            IngredientId = entity.IngredientId,
+            ProductId = entity.ProductId
         };
         public PersonalizationBasicModel ToBasicModel(Personalization entity) => new PersonalizationBasicModel
         {
@@ -310,7 +312,9 @@ namespace PokeManagement.Models
             ProductIngredientId = model.Id,
             Amount = model.Amount,
             MaxAllowed = model.MaxAllowed,
-            IsIncluded = model.IsIncluded
+            IsIncluded = model.IsIncluded,
+            IngredientId = model.IngredientId,
+            ProductId = model.ProductId
         };
         public Personalization ToEntity(PersonalizationBasicModel model) => new Personalization
         {

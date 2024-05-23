@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PokeManagement.Models;
 using PokeManagementDAL.Auth;
 using PokeManagementDAL.Managers;
@@ -21,7 +22,7 @@ namespace PokeManagement.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_managers.OrderManager.GetAll().ToList().ConvertAll(_mapper.ToModel));
+            return Ok(_managers.OrderManager.GetAll().Include(o=>o.Details).Include(o=>o.OrderType).ToList().ConvertAll(_mapper.ToModel));
         }
         [HttpGet, Route("Get/{id}")]
         public IActionResult Get(int id)

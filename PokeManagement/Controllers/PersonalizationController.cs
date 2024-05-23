@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PokeManagement.Models;
 using PokeManagementDAL.Managers;
 
@@ -19,7 +20,7 @@ namespace PokeManagement.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_managers.PersonalizationManager.GetAll().ToList().ConvertAll(_mapper.ToModel));
+            return Ok(_managers.PersonalizationManager.GetAll().Include(pers=>pers.ProductIngredient).Include(pers=>pers.OrderDetail).ToList().ConvertAll(_mapper.ToModel));
         }
         [HttpGet, Route("Get/{id}")]
         public IActionResult Get(int id)

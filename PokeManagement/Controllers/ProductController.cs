@@ -22,7 +22,7 @@ namespace PokeManagement.Controllers
         public IActionResult Get()
         {
             //var result = _managers.ProductManager.GetAll().ToList();
-            return Ok(_managers.ProductManager.GetAll()/*.Include(p=>p.ProductType)?*/.Include(p=>p.ProductIngredients)/*.ThenInclude(pi=>pi.Ingredient)*/.ToList().ConvertAll(_mapper.ToModel)); 
+            return Ok(_managers.ProductManager.GetAll().Include(p => p.ProductType)?.Include(p=>p.ProductIngredients).ThenInclude(pi => pi.Ingredient).ToList().ConvertAll(_mapper.ToModel)); 
         }
         [HttpGet,Route("Get/{id}")]
         public IActionResult Get(int id)
