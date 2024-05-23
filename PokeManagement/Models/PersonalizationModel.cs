@@ -1,4 +1,5 @@
-﻿using PokeManagementDAL.Data;
+﻿using PokeManagement.Models.BasicModels;
+using PokeManagementDAL.Data;
 
 namespace PokeManagement.Models
 {
@@ -8,7 +9,7 @@ namespace PokeManagement.Models
         public int OrderDetailId { get; set; }
         public int ProductIngredientId { get; set; }
         public bool IsRemoved { get; set; }
-        public OrderDetailModel? OrderDetail { get; set; }
-        public ProductIngredientModel? ProductIngredient { get; set; }
+        public OrderDetailBasicModel? OrderDetail { get; set; }
+        public ProductIngredientBasicModel? ProductIngredient { get; set; }
     }
 }

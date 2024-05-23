@@ -1,4 +1,5 @@
-﻿using PokeManagementDAL.Data;
+﻿using PokeManagement.Models.BasicModels;
+using PokeManagementDAL.Data;
 
 namespace PokeManagement.Models
 {
@@ -9,8 +10,8 @@ namespace PokeManagement.Models
         public int ProductId { get; set; }
         public int Amount { get; set; }
         public double Price { get; set; }
-        public OrderModel? Order { get; set; }
-        public ProductModel? Product { get; set; }
-        public List<PersonalizationModel>? Personalizations { get; set; }
+        public OrderBasicModel? Order { get; set; }
+        public ProductBasicModel? Product { get; set; }
+        public List<PersonalizationBasicModel>? Personalizations { get; set; }
     }
 }

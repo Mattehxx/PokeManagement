@@ -26,6 +26,8 @@ namespace PokeManagementDAL.Managers
         //public bool AddOrder   --> take away e in loco
         //opzionale:
         public void PersonalizeOrderProduct(int orderId,Product product);
+        public void AddOrderTakeAway(Order order);
+        public void AddOrderInLocal(Order order);
         #endregion
     }
 }

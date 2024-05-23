@@ -1,4 +1,5 @@
-﻿using PokeManagementDAL.Data;
+﻿using PokeManagement.Models.BasicModels;
+using PokeManagementDAL.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace PokeManagement.Models
@@ -15,7 +16,7 @@ namespace PokeManagement.Models
         public double Calories { get; set; }
         public bool IsDeleted { get; set; }
         public int IngredientTypeId { get; set; }
-        public IngredientTypeModel? IngredientType { get; set; }
-        public List<ProductIngredientModel>? ProductIngredients { get; set; }
+        public IngredientTypeBasicModel? IngredientType { get; set; }
+        public List<ProductIngredientBasicModel>? ProductIngredients { get; set; }
     }
 }

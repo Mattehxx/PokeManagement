@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using PokeManagement.Models.BasicModels;
 using PokeManagementDAL.Auth;
 using PokeManagementDAL.Data;
 
@@ -13,7 +14,8 @@ namespace PokeManagement.Models
             Name = model.Name,
             Description = model.Description,
             IsDeleted = false,
-            Price = model.ProductIngredients?.Sum(pi=>pi.Amount * (pi.Ingredient != null ? pi.Ingredient.AdditionalCost : 0)) ?? 0,
+            //Price = 
+            //Price = model.ProductIngredients?.Sum(pi=>pi.Amount * (pi.Ingredient != null ? pi.Ingredient.AdditionalCost : 0)) ?? 0,
             ProductTypeId = model.ProductTypeId,
             OrderDetails = model.OrderDetails?.ConvertAll(ToEntity),
             ProductType = model.ProductType != null ? ToEntity(model.ProductType) : null,
@@ -43,7 +45,7 @@ namespace PokeManagement.Models
             IsRemoved = model.IsRemoved,
             OrderDetailId = model.OrderDetailId,
             ProductIngredientId = model.ProductIngredientId,
-            OrderDetail = ToEntity(model.OrderDetail!),
+            OrderDetail = model.OrderDetail != null ? ToEntity(model.OrderDetail) : null,
             ProductIngredient = model.ProductIngredient != null ? ToEntity(model.ProductIngredient) : null
         };
         public OrderType ToEntity(OrderTypeModel model) => new OrderType
@@ -122,9 +124,9 @@ namespace PokeManagement.Models
             Name = entity.Name,
             Price = entity.Price,
             ProductTypeId = entity.ProductId,
-            ProductType = ToModel(entity.ProductType!),
-            OrderDetails = entity.OrderDetails?.ConvertAll(ToModel),
-            ProductIngredients = entity.ProductIngredients?.ConvertAll(ToModel)
+            ProductType = entity.ProductType != null ? ToBasicModel(entity.ProductType) : null,
+            OrderDetails = entity.OrderDetails?.ConvertAll(ToBasicModel),
+            ProductIngredients = entity.ProductIngredients?.ConvertAll(ToBasicModel)
             
             //specificPersonalizations = entity.DefaultPersonalizations? //finire
         };
@@ -132,7 +134,7 @@ namespace PokeManagement.Models
         {
             Id = entity.ProductTypeId,
             Description = entity.Description,
-            Products = entity.Products?.ConvertAll(ToModel)
+            Products = entity.Products?.ConvertAll(ToBasicModel)
         };
         public ProductIngredientModel ToModel(ProductIngredient entity) => new ProductIngredientModel
         {
@@ -142,9 +144,9 @@ namespace PokeManagement.Models
             IsIncluded = entity.IsIncluded,
             IngredientId = entity.IngredientId,
             ProductId = entity.ProductId,
-            Ingredient = entity.Ingredient != null ? ToModel(entity.Ingredient) : null,
-            Product = entity.Product != null ? ToModel(entity.Product) : null,
-            Personalizations = entity.Personalizations?.ConvertAll(ToModel)
+            Ingredient = entity.Ingredient != null ? ToBasicModel(entity.Ingredient) : null,
+            Product = entity.Product != null ? ToBasicModel(entity.Product) : null,
+            Personalizations = entity.Personalizations?.ConvertAll(ToBasicModel)
         };
         public PersonalizationModel ToModel(Personalization entity) => new PersonalizationModel
         {
@@ -152,14 +154,14 @@ namespace PokeManagement.Models
             IsRemoved = entity.IsRemoved,
             ProductIngredientId = entity.ProductIngredientId,
             OrderDetailId = entity.OrderDetailId,
-            OrderDetail =entity.OrderDetail != null ? ToModel(entity.OrderDetail) : null,
-            ProductIngredient = entity.ProductIngredient != null ? ToModel(entity.ProductIngredient) : null
+            OrderDetail =entity.OrderDetail != null ? ToBasicModel(entity.OrderDetail) : null,
+            ProductIngredient = entity.ProductIngredient != null ? ToBasicModel(entity.ProductIngredient) : null
         };
         public OrderTypeModel ToModel(OrderType entity) => new OrderTypeModel
         {
             Id = entity.OrderTypeId,
             Description = entity.Description,
-            Orders = entity.Orders?.ConvertAll(ToModel)
+            Orders = entity.Orders?.ConvertAll(ToBasicModel)
         };
         public OrderModel ToModel(Order entity) => new OrderModel
         {
@@ -174,7 +176,7 @@ namespace PokeManagement.Models
             OrderTypeId = entity.OrderTypeId,
             Mandator = entity.Mandator != null ? ToModel(entity.Mandator) : null,
             Operator = entity.Operator != null ? ToModel(entity.Operator) : null,
-            OrderType = entity.OrderType != null ? ToModel(entity.OrderType) : null
+            OrderType = entity.OrderType != null ? ToBasicModel(entity.OrderType) : null
         };
         public OrderDetailModel ToModel(OrderDetail entity) => new OrderDetailModel
         {
@@ -183,15 +185,15 @@ namespace PokeManagement.Models
             Price = entity.Price,
             ProductId = entity.ProductId,
             OrderdId = entity.OrderdId,
-            Order = entity.Order != null ? ToModel(entity.Order) : null,
-            Product = entity.Product != null ? ToModel(entity.Product) : null,
-            Personalizations = entity.Personalizations?.ConvertAll(ToModel)
+            Order = entity.Order != null ? ToBasicModel(entity.Order) : null,
+            Product = entity.Product != null ? ToBasicModel(entity.Product) : null,
+            Personalizations = entity.Personalizations?.ConvertAll(ToBasicModel)
         };
         public IngredientTypeModel ToModel(IngredientType entity) => new IngredientTypeModel
         {
             Id = entity.IngredientTypeId,
             Description = entity.Description,
-            Ingredients = entity.Ingredients?.ConvertAll(ToModel)
+            Ingredients = entity.Ingredients?.ConvertAll(ToBasicModel)
         };
         public IngredientModel ToModel(Ingredient entity) => new IngredientModel
         {
@@ -203,8 +205,8 @@ namespace PokeManagement.Models
             Calories = entity.Calories,
             Name = entity.Name,
             IngredientTypeId = entity.IngredientTypeId,
-            IngredientType = entity.IngredientType != null ? ToModel(entity.IngredientType) : null,
-            ProductIngredients = entity.ProductIngredients?.ConvertAll(ToModel)
+            IngredientType = entity.IngredientType != null ? ToBasicModel(entity.IngredientType) : null,
+            ProductIngredients = entity.ProductIngredients?.ConvertAll(ToBasicModel)
         };
         public ApplicationUserModel ToModel(ApplicationUser entity) => new ApplicationUserModel
         {
@@ -212,8 +214,8 @@ namespace PokeManagement.Models
             Name = entity.Name,
             Surname = entity.Surname,
             Email = entity.Email!,
-            MandatorOrders = entity.MandatorOrders?.ConvertAll(ToModel),
-            OperatorOrders = entity.OperatorOrders?.ConvertAll(ToModel)
+            MandatorOrders = entity.MandatorOrders?.ConvertAll(ToBasicModel),
+            OperatorOrders = entity.OperatorOrders?.ConvertAll(ToBasicModel)
         };
         //public DefaultPersonalizationModel ToModel(DefaultPersonalization entity) => new DefaultPersonalizationModel
         //{
@@ -225,6 +227,131 @@ namespace PokeManagement.Models
         //    Product = ToModel(entity.Product),
         //    Personalizations = entity.Personalizations?.ConvertAll(ToModel)
         //};
+
+        #endregion
+
+        #region toBasicModel
+        public ProductBasicModel ToBasicModel(Product entity) => new ProductBasicModel
+        {
+            Id = entity.ProductId,
+            Description = entity.Description,
+            Name = entity.Name,
+            Price = entity.Price
+        };
+        public ProductTypeBasicModel ToBasicModel(ProductType entity) => new ProductTypeBasicModel
+        {
+            Id = entity.ProductTypeId,
+            Description = entity.Description
+        };
+        public ProductIngredientBasicModel ToBasicModel(ProductIngredient entity) => new ProductIngredientBasicModel
+        {
+            Id = entity.ProductIngredientId,
+            Amount = entity.Amount,
+            IsIncluded = entity.IsIncluded,
+            MaxAllowed = entity.MaxAllowed
+        };
+        public PersonalizationBasicModel ToBasicModel(Personalization entity) => new PersonalizationBasicModel
+        {
+            Id = entity.PersonalizationId,
+            IsRemoved = entity.IsRemoved
+        };
+        public OrderBasicModel ToBasicModel(Order entity) => new OrderBasicModel
+        {
+            Id = entity.OrderId,
+            ExecDate = entity.ExecDate,
+            InsertDate = entity.InsertDate,
+            ReservationCode = entity.ReservationCode,
+            IsCompleted = entity.IsCompleted,
+            IsDeleted = entity.IsDeleted
+        };
+        public OrderDetailBasicModel ToBasicModel(OrderDetail entity) => new OrderDetailBasicModel
+        {
+            Id = entity.OrderDetailId,
+            Amount = entity.Amount,
+            Price = entity.Price
+        };
+        public OrderTypeBasicModel ToBasicModel(OrderType entity) => new OrderTypeBasicModel
+        {
+            Id = entity.OrderTypeId,
+            Description = entity.Description
+        };
+        public IngredientBasicModel ToBasicModel(Ingredient entity) => new IngredientBasicModel
+        {
+            Id = entity.IngredientId,
+            Description = entity.Description,
+            Allergen = entity.Allergen,
+            Calories = entity.Calories,
+            Name = entity.Name,
+            AdditionalCost = entity.AdditionalCost,
+            IsDeleted= entity.IsDeleted
+        };
+        public IngredientTypeBasicModel ToBasicModel(IngredientType entity) => new IngredientTypeBasicModel
+        {
+            Id = entity.IngredientTypeId,
+            Description = entity.Description
+        };
+        #endregion
+
+        #region toEntity - from BasicModel
+        public Product ToEntity(ProductBasicModel model) => new Product
+        {
+            ProductId = model.Id,
+            Name = model.Name,
+            Description = model.Description,
+            IsDeleted = false
+        };
+        public ProductType ToEntity(ProductTypeBasicModel model) => new ProductType
+        {
+            ProductTypeId = model.Id,
+            Description = model.Description
+        };
+        public ProductIngredient ToEntity(ProductIngredientBasicModel model) => new ProductIngredient
+        {
+            ProductIngredientId = model.Id,
+            Amount = model.Amount,
+            MaxAllowed = model.MaxAllowed,
+            IsIncluded = model.IsIncluded
+        };
+        public Personalization ToEntity(PersonalizationBasicModel model) => new Personalization
+        {
+            PersonalizationId = model.Id,
+            IsRemoved = model.IsRemoved
+        };
+        public OrderType ToEntity(OrderTypeBasicModel model) => new OrderType
+        {
+            OrderTypeId = model.Id,
+            Description = model.Description
+        };
+        public Order ToEntity(OrderBasicModel model) => new Order
+        {
+            OrderId = model.Id,
+            InsertDate = model.InsertDate,
+            IsCompleted = model.IsCompleted,
+            ReservationCode = model.ReservationCode,
+            IsDeleted = model.IsDeleted,
+            ExecDate = model.ExecDate
+        };
+        public OrderDetail ToEntity(OrderDetailBasicModel model) => new OrderDetail
+        {
+            OrderDetailId = model.Id,
+            Amount = model.Amount,
+            Price = model.Price
+        };
+        public IngredientType ToEntity(IngredientTypeBasicModel model) => new IngredientType
+        {
+            IngredientTypeId = model.Id,
+            Description = model.Description
+        };
+        public Ingredient ToEntity(IngredientBasicModel model) => new Ingredient
+        {
+            IngredientId = model.Id,
+            AdditionalCost = model.AdditionalCost,
+            Allergen = model.Allergen,
+            Description = model.Description,
+            Calories = model.Calories,
+            Name = model.Name,
+            IsDeleted = model.IsDeleted
+        };
         
         #endregion
     }

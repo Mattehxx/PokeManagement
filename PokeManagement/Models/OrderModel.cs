@@ -2,6 +2,7 @@
 using PokeManagementDAL.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using PokeManagement.Models.BasicModels;
 
 namespace PokeManagement.Models
 {
@@ -19,7 +20,7 @@ namespace PokeManagement.Models
         public string MandatorId { get; set; }
         [MaxLength(450)]
         public string? OperatorId { get; set; }
-        public OrderTypeModel? OrderType { get; set; }
+        public OrderTypeBasicModel? OrderType { get; set; }
         public ApplicationUserModel? Mandator { get; set; }
         public ApplicationUserModel? Operator { get; set; }
     }

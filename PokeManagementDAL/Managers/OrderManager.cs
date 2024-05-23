@@ -17,6 +17,16 @@ namespace PokeManagementDAL.Managers
             Create(order);
         }
 
+        public void AddOrderInLocal(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddOrderTakeAway(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
         public void ExecMultipleOrders(List<Order> orders)
         {
             throw new NotImplementedException();

@@ -1,4 +1,5 @@
 ﻿
+using PokeManagement.Models.BasicModels;
 using PokeManagementDAL.Data;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,9 +14,9 @@ namespace PokeManagement.Models
         public string Description { get; set; }
         public double Price { get; set; }
         public int ProductTypeId { get; set; }
-        public ProductTypeModel? ProductType { get; set; }
-        public List<OrderDetailModel>? OrderDetails { get; set; }
-        public List<ProductIngredientModel>? ProductIngredients { get; set; }
+        public ProductTypeBasicModel? ProductType { get; set; }
+        public List<OrderDetailBasicModel>? OrderDetails { get; set; }
+        public List<ProductIngredientBasicModel>? ProductIngredients { get; set; }
         //solo per il modello (default personalization) -> senza gli ingredienti presenti nel prodotto
         //public List<SpecificPersonalization>? specificPersonalizations { get; set; }
     }

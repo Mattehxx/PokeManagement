@@ -1,4 +1,5 @@
-﻿using PokeManagementDAL.Data;
+﻿using PokeManagement.Models.BasicModels;
+using PokeManagementDAL.Data;
 
 namespace PokeManagement.Models
 {
@@ -10,8 +11,8 @@ namespace PokeManagement.Models
         public int Amount { get; set; }
         public int MaxAllowed { get; set; }
         public bool IsIncluded { get; set; }
-        public ProductModel? Product { get; set; }
-        public IngredientModel? Ingredient { get; set; }
-        public List<PersonalizationModel>? Personalizations { get; set; }
+        public ProductBasicModel? Product { get; set; }
+        public IngredientBasicModel? Ingredient { get; set; }
+        public List<PersonalizationBasicModel>? Personalizations { get; set; }
     }
 }
