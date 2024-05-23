@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using PokeManagement.Models.BasicModels;
 using PokeManagementDAL.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,12 +18,13 @@ namespace PokeManagement.Controllers
         private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly RoleManager<IdentityRole> _roleManager = roleManager;
         private readonly IConfiguration _configuration = configuration;
-
+        #region POST - (login and registration)
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             ApplicationUser? user = await _userManager.FindByNameAsync(model.Username);
+            
             if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
                 return Unauthorized();
 
@@ -45,7 +47,8 @@ namespace PokeManagement.Controllers
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo,
                 role = userRoles[0],
-                username = model.Username
+                username = model.Username,
+                id = user.Id
             });
         }
 
@@ -150,6 +153,24 @@ namespace PokeManagement.Controllers
 
             return Ok(new Response { Status = "Success", Message = "Admin created successfully!" });
         }
+        #endregion
+
+        #region GET - (user info)
+        [HttpGet,Route("GetUser/{id}")]
+        public async Task<IActionResult> GetUser(string id)
+        {
+            ApplicationUser? user = await _userManager.FindByIdAsync(id);
+            return user == null ? BadRequest() : Ok(new UserBasicModel
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                Username = user.UserName ?? string.Empty,
+                Email = user.Email ?? string.Empty
+            });
+        }
+        #endregion
+
+
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {

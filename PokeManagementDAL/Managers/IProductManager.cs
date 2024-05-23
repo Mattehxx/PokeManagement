@@ -20,5 +20,7 @@ namespace PokeManagementDAL.Managers
         public void ToImplement(); // definizione ingredienti default e ingredienti per possibile personalizzazione
         //aggiunta
         public IQueryable<Product>? GetProdByCategory(int categoryId);
+        //override get by id
+        //override GetById(int id);
     }
 }

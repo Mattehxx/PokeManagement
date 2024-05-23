@@ -36,6 +36,8 @@ namespace PokeManagement.Controllers
             _managers.OrderManager.Create(_mapper.ToEntity(model));
             return _managers.Commit() ? Created() : BadRequest("Order was not created");
         }
+        [Authorize(Roles = ApplicationRoles.Admin)]
+        [Authorize(Roles = ApplicationRoles.Operator)]
         [HttpDelete, Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {
@@ -60,9 +62,15 @@ namespace PokeManagement.Controllers
         [HttpPost,Route("AddOrderDriveThrough")]
         public IActionResult AddOrderDriveThrough(OrderModel orderModel)
         {
-            var toAdd = _mapper.ToEntity(orderModel);
-            _managers.OrderManager.AddOrderDriveThrough(toAdd);
-            return _managers.Commit() ? Ok() : BadRequest();
+            try
+            {
+                var toAdd = _mapper.ToEntity(orderModel);
+                _managers.OrderManager.AddOrderDriveThrough(toAdd);
+                return _managers.Commit() ? Ok() : BadRequest();
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [Authorize(Roles = ApplicationRoles.Operator)]
         [HttpGet,Route("GetOrderToExec")]
@@ -86,6 +94,38 @@ namespace PokeManagement.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        #region CUSTOMER-ANONYMOUS (order inloco e takeAway)
+        [Authorize(Roles =ApplicationRoles.Customer)]
+        [Authorize(Roles =ApplicationRoles.Anonymous)]
+        [HttpPost,Route("AddInLocalOrder")]
+        public IActionResult AddInLocalOrder(OrderModel orderModel)
+        {
+            try
+            {
+                var toAdd = _mapper.ToEntity(orderModel);
+                _managers.OrderManager.AddOrderInLocal(toAdd);
+                return _managers.Commit() ? Ok() : BadRequest();
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize(Roles =ApplicationRoles.Customer)]
+        [Authorize(Roles =ApplicationRoles.Anonymous)]
+        [HttpPost,Route("AddTakeAwayOrder")]
+        public IActionResult AddTakeAwayOrder(OrderModel orderModel)
+        {
+            try
+            {
+                var toAdd = _mapper.ToEntity(orderModel);
+                _managers.OrderManager.AddOrderTakeAway(toAdd);
+                return _managers.Commit() ? Ok() : BadRequest();
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        #endregion
 
     }
 }

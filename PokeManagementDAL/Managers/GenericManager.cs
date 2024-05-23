@@ -19,7 +19,7 @@ namespace PokeManagementDAL.Managers
             _dbSet = ctx.Set<T>();
         }
         public IQueryable<T> GetAll() => _dbSet;
-        public T? GetById(int id) => _dbSet.Find(id);
+        public virtual T? GetById(int id) => _dbSet.Find(id);
         public T Create(T entity)
         {
             _dbSet.Add(entity);

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokeManagement.Models;
+using PokeManagementDAL.Auth;
 using PokeManagementDAL.Managers;
 
 namespace PokeManagement.Controllers
@@ -36,6 +38,7 @@ namespace PokeManagement.Controllers
             _managers.ProductManager.Create(_mapper.ToEntity(model));
             return _managers.Commit() ? Created() : BadRequest("product was not created");
         }
+        [Authorize(Roles = ApplicationRoles.Admin)]
         [HttpDelete,Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {

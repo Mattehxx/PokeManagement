@@ -250,7 +250,8 @@ namespace PokeManagement.Models
             IsIncluded = entity.IsIncluded,
             MaxAllowed = entity.MaxAllowed,
             IngredientId = entity.IngredientId,
-            ProductId = entity.ProductId
+            ProductId = entity.ProductId,
+            IngredientName = entity.Ingredient?.Name ?? string.Empty,
         };
         public PersonalizationBasicModel ToBasicModel(Personalization entity) => new PersonalizationBasicModel
         {

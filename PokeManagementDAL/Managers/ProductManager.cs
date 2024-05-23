@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PokeManagementDAL.Managers
 {
@@ -47,6 +48,10 @@ namespace PokeManagementDAL.Managers
         public void ToImplement()
         {
             throw new NotImplementedException();
+        }
+        public override Product? GetById(int id)
+        {
+            return  _dbSet.Include(p=>p.ProductIngredients).ThenInclude(pi=>pi.Ingredient).SingleOrDefault(p=>p.ProductId == id);
         }
     }
 }
