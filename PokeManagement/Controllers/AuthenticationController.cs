@@ -44,7 +44,8 @@ namespace PokeManagement.Controllers
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo,
-                UserRole = userRoles[0]
+                role = userRoles[0],
+                username = model.Username
             });
         }
 
