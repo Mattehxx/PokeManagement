@@ -23,5 +23,6 @@ namespace PokeManagement.Models
         public OrderTypeBasicModel? OrderType { get; set; }
         public ApplicationUserModel? Mandator { get; set; }
         public ApplicationUserModel? Operator { get; set; }
+        public List<OrderDetailBasicModel> Details { get; set; }
     }
 }

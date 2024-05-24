@@ -36,8 +36,8 @@ namespace PokeManagement.Controllers
             _managers.OrderManager.Create(_mapper.ToEntity(model));
             return _managers.Commit() ? Created() : BadRequest("Order was not created");
         }
-        [Authorize(Roles = ApplicationRoles.Admin)]
-        [Authorize(Roles = ApplicationRoles.Operator)]
+        [Authorize(Roles = $"{ApplicationRoles.Admin},{ApplicationRoles.Operator}")]
+        //[Authorize(Roles = ApplicationRoles.Operator)]
         [HttpDelete, Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {

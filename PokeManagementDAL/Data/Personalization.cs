@@ -11,7 +11,7 @@ namespace PokeManagementDAL.Data
         public int PersonalizationId { get; set; }
         public int OrderDetailId { get; set; }
         public int ProductIngredientId { get; set; }
-        public bool IsRemoved { get; set; }
+        public int Amount { get; set; }
         public OrderDetail? OrderDetail { get; set; }
         public ProductIngredient? ProductIngredient { get; set;}
     }
