@@ -14,7 +14,7 @@ namespace PokeManagement.Models
             Name = model.Name,
             Description = model.Description,
             IsDeleted = false,
-            //Price = 
+            Price = model.Price,
             //Price = model.ProductIngredients?.Sum(pi=>pi.Amount * (pi.Ingredient != null ? pi.Ingredient.AdditionalCost : 0)) ?? 0,
             ProductTypeId = model.ProductTypeId,
             OrderDetails = model.OrderDetails?.ConvertAll(ToEntity),
