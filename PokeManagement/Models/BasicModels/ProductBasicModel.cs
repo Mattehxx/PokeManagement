@@ -9,6 +9,6 @@ namespace PokeManagement.Models.BasicModels
         public string Description { get; set; }
         public double Price { get; set; }
         public bool IsDeleted { get; set; }
-        public List<ProductIngredientBasicModel>? ProductIngredient { get; set; }
+        public List<ProductIngredientBasicModel>? ProductIngredients { get; set; }
     }
 }

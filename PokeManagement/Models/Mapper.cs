@@ -242,7 +242,7 @@ namespace PokeManagement.Models
             Name = entity.Name,
             Price = entity.Price,
             IsDeleted = entity.IsDeleted,
-            ProductIngredient = entity.ProductIngredients?.ConvertAll(ToBasicModel)
+            ProductIngredients = entity.ProductIngredients?.ConvertAll(ToBasicModel)
         };
         public ProductTypeBasicModel ToBasicModel(ProductType entity) => new ProductTypeBasicModel
         {
