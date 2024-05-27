@@ -11,13 +11,13 @@
             {
                 count = 0;
                 countChar++;
-                if (chars[countChar] == 'Z')
+                if (chars.ElementAt(countChar).ToString() == "Z")
                 {
                     countChar = 0;
                 }
-                return $"{chars[countChar] + count++}";
             }
-            return $"{chars[countChar] + count++}";
+            string countString = count++.ToString().Length < 2 ? $"0{count}" : count.ToString();
+            return $"{chars.ElementAt(countChar).ToString() + countString}";
         }
     }
 }
