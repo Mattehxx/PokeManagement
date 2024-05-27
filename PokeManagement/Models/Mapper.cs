@@ -179,7 +179,8 @@ namespace PokeManagement.Models
             OrderTypeId = entity.OrderTypeId,
             Mandator = entity.Mandator != null ? ToModel(entity.Mandator) : null,
             Operator = entity.Operator != null ? ToModel(entity.Operator) : null,
-            OrderType = entity.OrderType != null ? ToBasicModel(entity.OrderType) : null
+            OrderType = entity.OrderType != null ? ToBasicModel(entity.OrderType) : null,
+            Details = entity.Details.ConvertAll(ToBasicModel)
         };
         public OrderDetailModel ToModel(OrderDetail entity) => new OrderDetailModel
         {
@@ -261,7 +262,9 @@ namespace PokeManagement.Models
         public PersonalizationBasicModel ToBasicModel(Personalization entity) => new PersonalizationBasicModel
         {
             Id = entity.PersonalizationId,
-            Amount = entity.Amount
+            Amount = entity.Amount,
+            ProductIngredientId = entity.ProductIngredientId,
+            ProductIngredient = entity.ProductIngredient != null ? ToBasicModel(entity.ProductIngredient) : null,
         };
         public OrderBasicModel ToBasicModel(Order entity) => new OrderBasicModel
         {
@@ -276,7 +279,11 @@ namespace PokeManagement.Models
         {
             Id = entity.OrderDetailId,
             Amount = entity.Amount,
-            Price = entity.Price
+            Price = entity.Price,
+            ProductId = entity.ProductId,
+            OrderId = entity.OrderId,
+            Product = entity.Product != null ? ToBasicModel(entity.Product) : null,
+            Personalizations = entity.Personalizations?.ConvertAll(ToBasicModel)
         };
         public OrderTypeBasicModel ToBasicModel(OrderType entity) => new OrderTypeBasicModel
         {

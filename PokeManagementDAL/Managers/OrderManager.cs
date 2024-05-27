@@ -64,5 +64,10 @@ namespace PokeManagementDAL.Managers
         {
             throw new NotImplementedException();
         }
+        public override Order? GetById(int id)
+        {
+            return _dbSet.Include(o=>o.OrderType)?.Include(o=>o.Details).ThenInclude(dt=>dt.Personalizations).ThenInclude(p=>p.ProductIngredient).ThenInclude(pi=>pi.Ingredient)?
+                .Include(o => o.Details).ThenInclude(dt=>dt.Product).SingleOrDefault(o=>o.OrderId == id);
+        }
     }
 }
