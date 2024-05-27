@@ -3,6 +3,7 @@
     public static class ReservationCode
     {
         private static int count;
+        //private static int countChar
         public static int New()
         {
             if (count > 100)
