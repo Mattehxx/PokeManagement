@@ -4,7 +4,7 @@
     {
         private static int count;
         private static int countChar;
-        private static char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        private static string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         public static string New()
         {
             if (count >= 100)
