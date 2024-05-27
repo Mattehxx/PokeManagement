@@ -20,7 +20,7 @@ namespace PokeManagementDAL.Data
         public bool IsDeleted {  get; set; }
         public int OrderTypeId { get; set; }
         [MaxLength(450)]
-        public string MandatorId { get; set; }
+        public string? MandatorId { get; set; }
         [MaxLength(450)]
         public string? OperatorId { get; set; }
         public OrderType? OrderType { get; set; }
