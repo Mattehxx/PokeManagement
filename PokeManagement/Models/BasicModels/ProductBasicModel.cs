@@ -8,6 +8,7 @@ namespace PokeManagement.Models.BasicModels
         public string Name { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
+        public bool IsDeleted { get; set; }
         //solo per il modello (default personalization) -> senza gli ingredienti presenti nel prodotto
         //public List<SpecificPersonalization>? specificPersonalizations { get; set; }
     }

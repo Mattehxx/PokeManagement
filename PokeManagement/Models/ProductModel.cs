@@ -13,6 +13,7 @@ namespace PokeManagement.Models
         [MaxLength(200)]
         public string Description { get; set; }
         public double Price { get; set; }
+        public bool IsDeleted { get; set; }
         public int ProductTypeId { get; set; }
         public ProductTypeBasicModel? ProductType { get; set; }
         public List<OrderDetailBasicModel>? OrderDetails { get; set; }

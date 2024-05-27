@@ -125,6 +125,7 @@ namespace PokeManagement.Models
             Description = entity.Description,
             Name = entity.Name,
             Price = entity.Price,
+            IsDeleted = entity.IsDeleted,
             ProductTypeId = entity.ProductTypeId,
             ProductType = entity.ProductType != null ? ToBasicModel(entity.ProductType) : null,
             OrderDetails = entity.OrderDetails?.ConvertAll(ToBasicModel),
@@ -238,7 +239,8 @@ namespace PokeManagement.Models
             Id = entity.ProductId,
             Description = entity.Description,
             Name = entity.Name,
-            Price = entity.Price
+            Price = entity.Price,
+            IsDeleted = entity.IsDeleted
         };
         public ProductTypeBasicModel ToBasicModel(ProductType entity) => new ProductTypeBasicModel
         {

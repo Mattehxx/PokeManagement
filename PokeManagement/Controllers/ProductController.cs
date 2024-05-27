@@ -97,7 +97,7 @@ namespace PokeManagement.Controllers
         public IActionResult GetByCat(int catId)
         {
             var prod = _managers.ProductManager.GetProdByCategory(catId);
-            return prod == null ? BadRequest() : Ok(prod.ToList());
+            return prod == null ? BadRequest() : Ok(prod.ToList().ConvertAll(_mapper.ToModel));
         }
         #endregion
 
