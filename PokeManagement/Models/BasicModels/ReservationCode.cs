@@ -3,15 +3,21 @@
     public static class ReservationCode
     {
         private static int count;
-        //private static int countChar
-        public static int New()
+        private static int countChar;
+        private static char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        public static string New()
         {
-            if (count > 100)
+            if (count >= 100)
             {
                 count = 0;
-                return count++;
+                countChar++;
+                if (chars[countChar] == 'Z')
+                {
+                    countChar = 0;
+                }
+                return $"{chars[countChar] + count++}";
             }
-            return count++;
+            return $"{chars[countChar] + count++}";
         }
     }
 }
