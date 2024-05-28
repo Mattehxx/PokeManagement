@@ -44,11 +44,11 @@ namespace PokeManagement.Controllers
             _managers.OrderManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("Order was not deleted");
         }
-        [HttpPut, Route("Edit/{id}")]
-        public IActionResult Put([FromBody] OrderModel model, int id)
+        [HttpPut, Route("Edit")]
+        public IActionResult Put([FromBody] OrderModel model)
         {
-            if (model.Id != id)
-                model.Id = id;
+            //if (_managers.OrderManager.GetById(model.Id) == null)
+            //    return BadRequest("Order not found");
             _managers.OrderManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("Order was not modified");
         }

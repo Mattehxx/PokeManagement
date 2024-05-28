@@ -44,9 +44,9 @@ namespace PokeManagementDAL.Managers
             return true;
         }
 
-        public bool ExecuteStoreProcedure(DateTime start,DateTime end)
+        public bool ExecuteStoreProcedure(DateTime start, DateTime end)
         {
-            var command = $"EXECUTE [dbo].[MoveToHistoryTables] {start},{end}";
+            var command = $"EXECUTE [dbo].[MoveToHistoryTables] '{start.ToString("s")}', '{end.ToString("s")}'";
             return _ctx.Database.ExecuteSqlRaw(command) > 0;
         }
 
