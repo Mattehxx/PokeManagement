@@ -44,11 +44,9 @@ namespace PokeManagement.Controllers
             _managers.OrderDetailManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("order detail was not deleted");
         }
-        [HttpPut, Route("Edit/{id}")]
-        public IActionResult Put([FromBody] OrderDetailModel model, int id)
+        [HttpPut, Route("Edit")]
+        public IActionResult Put([FromBody] OrderDetailModel model)
         {
-            if (model.Id != id)
-                model.Id = id;
             _managers.OrderDetailManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("order detail was not modified");
         }

@@ -44,11 +44,9 @@ namespace PokeManagement.Controllers
             _managers.OrderTypeManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("order type was not deleted");
         }
-        [HttpPut, Route("Edit/{id}")]
-        public IActionResult Put([FromBody] OrderTypeModel model, int id)
+        [HttpPut, Route("Edit")]
+        public IActionResult Put([FromBody] OrderTypeModel model)
         {
-            if (model.Id != id)
-                model.Id = id;
             _managers.OrderTypeManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("order type was not modified");
         }
