@@ -76,7 +76,7 @@ namespace PokeManagement.Controllers
         [HttpGet,Route("GetOrderToExec")]
         public IActionResult GetOrderToExec()
         {
-            return Ok(_managers.OrderManager.GetOrdersToExec().ToList());
+            return Ok(_managers.OrderManager.GetOrdersToExec().ToList().ConvertAll(_mapper.ToBasicModel));
         }
         [Authorize(Roles = ApplicationRoles.Operator)]
         [HttpPut, Route("ExecOrder/{id}")]
