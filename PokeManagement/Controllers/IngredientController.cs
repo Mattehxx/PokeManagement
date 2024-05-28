@@ -43,11 +43,9 @@ namespace PokeManagement.Controllers
             _managers.IngredientManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("ingredient was not deleted");
         }
-        [HttpPut, Route("Edit/{id}")]
-        public IActionResult Put([FromBody] IngredientModel model, int id)
+        [HttpPut, Route("Edit")]
+        public IActionResult Put([FromBody] IngredientModel model)
         {
-            if (model.Id != id)
-                model.Id = id;
             _managers.IngredientManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("ingredient was not modified");
         }
