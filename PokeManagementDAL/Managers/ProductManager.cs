@@ -31,9 +31,11 @@ namespace PokeManagementDAL.Managers
                 ?.Include(p => p.ProductIngredients)?.ThenInclude(pi => pi.Ingredient);
         }
 
-        public void LogicalDelete(int id,bool confirm)
+        public void LogicalDelete(int ingredientId,bool confirm)
         {
-            Filter(p=>p.ProductId == id).FirstOrDefault()!.IsDeleted = confirm;
+            var ing = GetById(ingredientId);
+            if (ing != null)
+                ing.IsDeleted = confirm;
         }
 
         public void RemoveProduct(int id)
