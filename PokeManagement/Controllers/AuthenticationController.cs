@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PokeManagement.Models.BasicModels;
 using PokeManagementDAL.Auth;
+using PokeManagementDAL.Managers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -13,11 +14,12 @@ namespace PokeManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration) : ControllerBase
+    public class AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IUnitOfWork unitOfWork) : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly RoleManager<IdentityRole> _roleManager = roleManager;
         private readonly IConfiguration _configuration = configuration;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
         #region POST - (login and registration)
         [HttpPost]
         [Route("login")]
@@ -162,11 +164,69 @@ namespace PokeManagement.Controllers
             ApplicationUser? user = await _userManager.FindByIdAsync(id);
             return user == null ? BadRequest() : Ok(new UserBasicModel
             {
+                Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname,
                 Username = user.UserName ?? string.Empty,
                 Email = user.Email ?? string.Empty
             });
+        }
+
+        [HttpGet, Route("GetAllUsers")]
+        public IActionResult GetAll()
+        {
+            return Ok(_userManager.Users.ToList());
+        }
+
+        [HttpPut, Route("Edit")]
+        public async Task<IActionResult> Put(UserBasicModel model)
+        {
+            var entity = await _userManager.FindByIdAsync(model.Id);
+            if(entity == null)
+                return BadRequest("User not found");
+
+            var role = await _roleManager.FindByNameAsync(model.Role);
+            if(role == null)
+                return BadRequest("Role not found");
+
+            entity.Name = model.Name;
+            entity.Surname = model.Surname;
+            entity.UserName = model.Username;
+            entity.Email = model.Email;
+
+            var roles = await _userManager.GetRolesAsync(entity);
+            await _userManager.RemoveFromRolesAsync(entity, roles);
+            await _userManager.AddToRoleAsync(entity, model.Role);
+
+            _unitOfWork.Commit();
+
+            return Ok(entity);
+        }
+
+        [HttpDelete, Route("Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var entity = await _userManager.FindByIdAsync(id);
+            if (entity == null)
+                return BadRequest();
+
+            entity.IsDeleted = true;
+            _unitOfWork.Commit();
+
+            return Ok(entity);
+        }
+
+        [HttpDelete, Route("Restore/{id}")]
+        public async Task<IActionResult> Restore(string id)
+        {
+            var entity = await _userManager.FindByIdAsync(id);
+            if (entity == null)
+                return BadRequest();
+
+            entity.IsDeleted = false;
+            _unitOfWork.Commit();
+
+            return Ok(entity);
         }
         #endregion
 
