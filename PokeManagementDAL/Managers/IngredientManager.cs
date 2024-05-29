@@ -24,9 +24,11 @@ namespace PokeManagementDAL.Managers
             throw new NotImplementedException();
         }
 
-        public void LogicalDelete(int ingredientId)
+        public void LogicalDelete(int ingredientId,bool confirm)
         {
-            throw new NotImplementedException();
+            var ing = GetById(ingredientId);
+            if(ing != null)
+                ing.IsDeleted = confirm;
         }
 
         public void RemoveIngredient(int ingredientId)

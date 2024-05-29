@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PokeManagementDAL.Managers
 {
-    internal class OrderDetailManager(PokeDbContext ctx) : GenericManager<OrderDetail>(ctx),IOrderDetailManager
+    public class OrderDetailManager(PokeDbContext ctx) : GenericManager<OrderDetail>(ctx),IOrderDetailManager
     {
     }
 }

@@ -11,7 +11,7 @@ namespace PokeManagementDAL.Managers
     {
         //ADMIN
         public IQueryable<Ingredient> GetListDetails(); //lista ingredienti con dettaglio
-        public void LogicalDelete(int ingredientId);
+        public void LogicalDelete(int ingredientId,bool confirm);
         public void AddIngredients(List<Ingredient> toAddIngredients);
         public void RemoveIngredients(List<Ingredient> toRemoveIngredients);
         public void AddIngredient(Ingredient toAddIngredient);

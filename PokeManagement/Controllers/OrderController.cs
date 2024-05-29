@@ -94,6 +94,24 @@ namespace PokeManagement.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        #region ADMIN
+        [Authorize(Roles = ApplicationRoles.Admin)]
+        [HttpDelete, Route("LogicalDelete/{id}")]
+        public IActionResult LogicalDelete(int id)
+        {
+            _managers.OrderManager.LogicalDelete(id, true);
+            return _managers.Commit() ? Ok() : BadRequest("cannot delete");
+        }
+        [Authorize(Roles = ApplicationRoles.Admin)]
+        [HttpDelete, Route("LogicalRestore/{id}")]
+        public IActionResult LogicalRestore(int id)
+        {
+            _managers.OrderManager.LogicalDelete(id, false);
+            return _managers.Commit() ? Ok() : BadRequest("cannot restore");
+        }
+        #endregion
+
         #region CUSTOMER-ANONYMOUS (order inloco e takeAway)
         [Authorize(Roles =ApplicationRoles.Customer)]
         [Authorize(Roles =ApplicationRoles.Anonymous)]
