@@ -27,7 +27,8 @@ namespace PokeManagementDAL.Managers
 
         public IQueryable<Product>? GetProdByCategory(int categoryId)
         {
-            return Filter(p=>p.ProductTypeId == categoryId);
+            return Filter(p => p.ProductTypeId == categoryId)
+                ?.Include(p => p.ProductIngredients)?.ThenInclude(pi => pi.Ingredient);
         }
 
         public void LogicalDelete(int id,bool confirm)

@@ -43,11 +43,9 @@ namespace PokeManagement.Controllers
             _managers.ProductTypeManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("product type was not deleted");
         }
-        [HttpPut, Route("Edit/{id}")]
-        public IActionResult Put([FromBody] ProductTypeModel model, int id)
+        [HttpPut, Route("Edit")]
+        public IActionResult Put([FromBody] ProductTypeModel model)
         {
-            if (model.Id != id)
-                model.Id = id;
             _managers.ProductTypeManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("product type was not modified");
         }

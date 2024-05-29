@@ -43,11 +43,9 @@ namespace PokeManagement.Controllers
             _managers.PersonalizationManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("personalization was not deleted");
         }
-        [HttpPut, Route("Edit/{id}")]
-        public IActionResult Put([FromBody] PersonalizationModel model, int id)
+        [HttpPut, Route("Edit")]
+        public IActionResult Put([FromBody] PersonalizationModel model)
         {
-            if (model.Id != id)
-                model.Id = id;
             _managers.PersonalizationManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("personalization was not modified");
         }

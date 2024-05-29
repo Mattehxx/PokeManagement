@@ -44,9 +44,9 @@ namespace PokeManagementDAL.Managers
             return true;
         }
 
-        public bool ExecuteStoreProcedure(DateTime start,DateTime end)
+        public bool ExecuteStoreProcedure(DateTime start, DateTime end)
         {
-            var command = $"EXECUTE [dbo].[MoveToHistoryTables] {start},{end}";
+            var command = $"EXECUTE [dbo].[MoveToHistoryTables] '{start.ToString("s")}', '{end.ToString("s")}'";
             return _ctx.Database.ExecuteSqlRaw(command) > 0;
         }
 
@@ -63,6 +63,12 @@ namespace PokeManagementDAL.Managers
         public void PersonalizeOrderProduct(int orderId, Product product)
         {
             throw new NotImplementedException();
+        }
+        public override Order? GetById(int id)
+        {
+            return _dbSet.Include(o=>o.OrderType).Include(o => o.Details).ThenInclude(dt => dt.Product).ThenInclude(p => p.ProductIngredients).ThenInclude(pi => pi.Ingredient)
+                .Include(o => o.Details).ThenInclude(dt => dt.Personalizations).ThenInclude(p => p.ProductIngredient).ThenInclude(pi => pi.Ingredient)
+                .SingleOrDefault(o=>o.OrderId == id);
         }
     }
 }

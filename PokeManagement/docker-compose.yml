@@ -1,0 +1,5 @@
+services:
+  backend:
+    image: "pokemanagement-backend"
+    ports:
+      - "5875:8080"

@@ -45,11 +45,9 @@ namespace PokeManagement.Controllers
             _managers.ProductManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("product was not deleted");
         }
-        [HttpPut,Route("Edit/{id}")]
-        public IActionResult Put([FromBody]ProductModel model,int id)
+        [HttpPut,Route("Edit")]
+        public IActionResult Put([FromBody]ProductModel model)
         {
-            if(model.Id != id)
-                model.Id = id;
             _managers.ProductManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("product was not modified");
         }
@@ -97,7 +95,7 @@ namespace PokeManagement.Controllers
         public IActionResult GetByCat(int catId)
         {
             var prod = _managers.ProductManager.GetProdByCategory(catId);
-            return prod == null ? BadRequest() : Ok(prod.ToList());
+            return prod == null ? BadRequest() : Ok(prod.ToList().ConvertAll(_mapper.ToModel));
         }
         #endregion
 
