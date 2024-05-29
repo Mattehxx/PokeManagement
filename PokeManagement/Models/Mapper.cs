@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using PokeManagement.Models.BasicModels;
 using PokeManagementDAL.Auth;
 using PokeManagementDAL.Data;
@@ -306,6 +307,15 @@ namespace PokeManagement.Models
             Id = entity.IngredientTypeId,
             Description = entity.Description
         };
+        public UserBasicModel ToBasicModel(ApplicationUser entity) => new UserBasicModel
+        {
+            Id = entity.Id,
+            Username = entity.UserName ?? "",
+            Email = entity.Email ?? "",
+            Name = entity.Name,
+            Surname = entity.Surname
+        };
+
         #endregion
 
         #region toEntity - from BasicModel
