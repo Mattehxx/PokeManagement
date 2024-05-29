@@ -56,7 +56,7 @@ namespace PokeManagement.Controllers
         #region ADDITIONAL
         //restore and delete (logical)
         [Authorize(Roles = ApplicationRoles.Admin)]
-        [HttpPut,Route("LogicalDelete/{id}")]
+        [HttpDelete,Route("LogicalDelete/{id}")]
         public IActionResult LogicalDelete(int id)
         {
             try
@@ -69,7 +69,7 @@ namespace PokeManagement.Controllers
             }
         }
         [Authorize(Roles =ApplicationRoles.Admin)]
-        [HttpPut,Route("LogicalRestore/{id}")]
+        [HttpDelete,Route("LogicalRestore/{id}")]
         public IActionResult LogicalRestore(int id)
         {
             try
