@@ -20,6 +20,7 @@ namespace PokeManagementDAL.Managers
         public IOrderManager OrderManager { get; private set; }
         public IIngredientManager IngredientManager { get; private set; }
         public IIngredientTypeManager IngredientTypeManager { get; private set; }
+        public IAuthManager AuthManager { get; private set; }
         public UnitOfWork(PokeDbContext ctx)
         {
             _ctx = ctx;
@@ -32,6 +33,7 @@ namespace PokeManagementDAL.Managers
             OrderManager = new OrderManager(ctx);
             IngredientManager = new IngredientManager(ctx);
             IngredientTypeManager = new IngredientTypeManager(ctx);
+            AuthManager = new AuthManager(ctx);
         }
 
         public bool Commit()

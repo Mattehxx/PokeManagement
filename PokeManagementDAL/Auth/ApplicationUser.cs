@@ -11,6 +11,7 @@ namespace PokeManagementDAL.Auth
         public string Name { get; set; }
         [MaxLength(100)]
         public string Surname { get; set; }
+        public bool IsDeleted { get; set; }
         [InverseProperty(nameof(Order.Mandator))]
         public List<Order>? MandatorOrders { get; set; }
         [InverseProperty(nameof(Order.Operator))]

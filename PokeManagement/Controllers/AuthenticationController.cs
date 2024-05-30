@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PokeManagement.Models;
 using PokeManagement.Models.BasicModels;
 using PokeManagementDAL.Auth;
+using PokeManagementDAL.Managers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -13,11 +16,13 @@ namespace PokeManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration) : ControllerBase
+    public class AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IUnitOfWork unitOfWork, Mapper mapper) : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly RoleManager<IdentityRole> _roleManager = roleManager;
         private readonly IConfiguration _configuration = configuration;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly Mapper _mapper = mapper;
         #region POST - (login and registration)
         [HttpPost]
         [Route("login")]
@@ -160,13 +165,71 @@ namespace PokeManagement.Controllers
         public async Task<IActionResult> GetUser(string id)
         {
             ApplicationUser? user = await _userManager.FindByIdAsync(id);
-            return user == null ? BadRequest() : Ok(new UserBasicModel
+            return user == null ? BadRequest() : Ok(_mapper.ToBasicModel(user));
+        }
+
+        [HttpGet, Route("GetAllUsers")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var users = _userManager.Users.ToList();
+            List<UserBasicModel> usersModel = new();
+            foreach (var user in users)
             {
-                Name = user.Name,
-                Surname = user.Surname,
-                Username = user.UserName ?? string.Empty,
-                Email = user.Email ?? string.Empty
-            });
+                usersModel.Add(await ToBasicModel(user));
+            }
+
+            return Ok(usersModel);
+        }
+
+        [HttpPut, Route("Edit")]
+        public async Task<IActionResult> Put(UserBasicModel model)
+        {
+            var entity = await _userManager.FindByIdAsync(model.Id);
+            if(entity == null)
+                return BadRequest("User not found");
+
+            var role = await _roleManager.FindByNameAsync(model.Role);
+            if(role == null)
+                return BadRequest("Role not found");
+
+            entity.Name = model.Name;
+            entity.Surname = model.Surname;
+            entity.UserName = model.Username;
+            entity.Email = model.Email;
+
+            var roles = await _userManager.GetRolesAsync(entity);
+            await _userManager.RemoveFromRolesAsync(entity, roles);
+            await _userManager.AddToRoleAsync(entity, model.Role);
+
+            _unitOfWork.Commit();
+
+            return Ok(_mapper.ToBasicModel(entity));
+        }
+
+        [HttpDelete, Route("Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var entity = await _userManager.FindByIdAsync(id);
+            if (entity == null)
+                return BadRequest();
+
+            entity.IsDeleted = true;
+            _unitOfWork.Commit();
+
+            return Ok(_mapper.ToBasicModel(entity));
+        }
+
+        [HttpDelete, Route("Restore/{id}")]
+        public async Task<IActionResult> Restore(string id)
+        {
+            var entity = await _userManager.FindByIdAsync(id);
+            if (entity == null)
+                return BadRequest();
+
+            entity.IsDeleted = false;
+            _unitOfWork.Commit();
+
+            return Ok(_mapper.ToBasicModel(entity));
         }
         #endregion
 
@@ -186,6 +249,16 @@ namespace PokeManagement.Controllers
 
             return token;
         }
-        
+
+        private async Task<UserBasicModel> ToBasicModel(ApplicationUser entity) => new UserBasicModel
+        {
+            Id = entity.Id,
+            Username = entity.UserName ?? "",
+            Email = entity.Email ?? "",
+            Name = entity.Name,
+            Surname = entity.Surname,
+            Role = (await _userManager.GetRolesAsync(entity))[0]
+        };
+
     }
 }
