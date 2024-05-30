@@ -54,14 +54,14 @@ namespace PokeManagement.Controllers
         public IActionResult LogicalDelete(int id)
         {
             _managers.IngredientManager.LogicalDelete(id,true);
-            return _managers.Commit() ? Ok() : BadRequest("cannot delete");
+            return _managers.Commit() ? Ok(new { id, IsDeleted = true }) : BadRequest("cannot delete");
         }
         [Authorize(Roles = ApplicationRoles.Admin)]
         [HttpDelete, Route("LogicalRestore/{id}")]
         public IActionResult LogicalRestore(int id)
         {
             _managers.IngredientManager.LogicalDelete(id, false);
-            return _managers.Commit() ? Ok() : BadRequest("cannot restore");
+            return _managers.Commit() ? Ok(new {id,IsDeleted=false}) : BadRequest("cannot restore");
         }
     }
 }
