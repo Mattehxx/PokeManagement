@@ -53,10 +53,10 @@ namespace PokeManagement.Controllers
             return _managers.Commit() ? Ok() : BadRequest("Order was not modified");
         }
         [Authorize(Roles =ApplicationRoles.Admin)]
-        [HttpPost,Route("SaveOrderHistory/{start}/{end}")]
-        public IActionResult StoreProcedureHistory(DateTime start,DateTime end)
+        [HttpPost,Route("SaveOrderHistory")]
+        public IActionResult StoreProcedureHistory([FromBody] OrderHistoryModel model)
         {
-            return _managers.OrderManager.ExecuteStoreProcedure(start, end) ? Ok() : BadRequest();
+            return _managers.OrderManager.ExecuteStoreProcedure(model.StartDate, model.EndDate) ? Ok() : BadRequest();
         }
         [Authorize(Roles = ApplicationRoles.Operator)]
         [HttpPost,Route("AddOrderDriveThrough")]
