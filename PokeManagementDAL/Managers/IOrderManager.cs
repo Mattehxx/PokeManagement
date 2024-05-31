@@ -12,6 +12,7 @@ namespace PokeManagementDAL.Managers
         //ADMIN
         #region ADMIN
         public bool ExecuteStoreProcedure(DateTime start, DateTime end); // aggiornare storico ordini
+        public void LogicalDelete(int id, bool confirm);
         #endregion
         //OPERATORE
         #region OPERATORE

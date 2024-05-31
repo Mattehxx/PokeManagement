@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using PokeManagement.Models.BasicModels;
 using PokeManagementDAL.Auth;
 using PokeManagementDAL.Data;
@@ -258,7 +259,8 @@ namespace PokeManagement.Models
             IngredientId = entity.IngredientId,
             ProductId = entity.ProductId,
             IngredientName = entity.Ingredient?.Name ?? string.Empty,
-            IngredientPrice = entity.Ingredient == null ? 0 : entity.Ingredient.AdditionalCost
+            IngredientPrice = entity.Ingredient == null ? 0 : entity.Ingredient.AdditionalCost,
+            IsDeleted = entity.Ingredient == null ? false : entity.Ingredient.IsDeleted
         };
         public PersonalizationBasicModel ToBasicModel(Personalization entity) => new PersonalizationBasicModel
         {
@@ -306,6 +308,15 @@ namespace PokeManagement.Models
             Id = entity.IngredientTypeId,
             Description = entity.Description
         };
+        public UserBasicModel ToBasicModel(ApplicationUser entity) => new UserBasicModel
+        {
+            Id = entity.Id,
+            Username = entity.UserName ?? "",
+            Email = entity.Email ?? "",
+            Name = entity.Name,
+            Surname = entity.Surname
+        };
+
         #endregion
 
         #region toEntity - from BasicModel

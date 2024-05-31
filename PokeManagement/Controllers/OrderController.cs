@@ -53,10 +53,10 @@ namespace PokeManagement.Controllers
             return _managers.Commit() ? Ok() : BadRequest("Order was not modified");
         }
         [Authorize(Roles =ApplicationRoles.Admin)]
-        [HttpPost,Route("SaveOrderHistory/{start}/{end}")]
-        public IActionResult StoreProcedureHistory(DateTime start,DateTime end)
+        [HttpPost,Route("SaveOrderHistory")]
+        public IActionResult StoreProcedureHistory([FromBody] OrderHistoryModel model)
         {
-            return _managers.OrderManager.ExecuteStoreProcedure(start, end) ? Ok() : BadRequest();
+            return _managers.OrderManager.ExecuteStoreProcedure(model.StartDate, model.EndDate) ? Ok() : BadRequest();
         }
         [Authorize(Roles = ApplicationRoles.Operator)]
         [HttpPost,Route("AddOrderDriveThrough")]
@@ -94,6 +94,24 @@ namespace PokeManagement.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        #region ADMIN
+        [Authorize(Roles = ApplicationRoles.Admin)]
+        [HttpDelete, Route("LogicalDelete/{id}")]
+        public IActionResult LogicalDelete(int id)
+        {
+            _managers.OrderManager.LogicalDelete(id, true);
+            return _managers.Commit() ? Ok() : BadRequest("cannot delete");
+        }
+        [Authorize(Roles = ApplicationRoles.Admin)]
+        [HttpDelete, Route("LogicalRestore/{id}")]
+        public IActionResult LogicalRestore(int id)
+        {
+            _managers.OrderManager.LogicalDelete(id, false);
+            return _managers.Commit() ? Ok() : BadRequest("cannot restore");
+        }
+        #endregion
+
         #region CUSTOMER-ANONYMOUS (order inloco e takeAway)
         [Authorize(Roles =ApplicationRoles.Customer)]
         [Authorize(Roles =ApplicationRoles.Anonymous)]

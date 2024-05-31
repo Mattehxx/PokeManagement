@@ -70,5 +70,11 @@ namespace PokeManagementDAL.Managers
                 .Include(o => o.Details).ThenInclude(dt => dt.Personalizations).ThenInclude(p => p.ProductIngredient).ThenInclude(pi => pi.Ingredient)
                 .SingleOrDefault(o=>o.OrderId == id);
         }
+        public void LogicalDelete(int ingredientId,bool confirm)
+        {
+            var order = GetById(ingredientId);
+            if (order != null)
+                order.IsDeleted = confirm;
+        }
     }
 }

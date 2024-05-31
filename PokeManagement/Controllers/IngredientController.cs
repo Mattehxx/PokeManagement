@@ -49,5 +49,19 @@ namespace PokeManagement.Controllers
             _managers.IngredientManager.Update(_mapper.ToEntity(model));
             return _managers.Commit() ? Ok() : BadRequest("ingredient was not modified");
         }
+        [Authorize(Roles = ApplicationRoles.Admin)]
+        [HttpDelete,Route("LogicalDelete/{id}")]
+        public IActionResult LogicalDelete(int id)
+        {
+            _managers.IngredientManager.LogicalDelete(id,true);
+            return _managers.Commit() ? Ok(new { id, IsDeleted = true }) : BadRequest("cannot delete");
+        }
+        [Authorize(Roles = ApplicationRoles.Admin)]
+        [HttpDelete, Route("LogicalRestore/{id}")]
+        public IActionResult LogicalRestore(int id)
+        {
+            _managers.IngredientManager.LogicalDelete(id, false);
+            return _managers.Commit() ? Ok(new {id,IsDeleted=false}) : BadRequest("cannot restore");
+        }
     }
 }
