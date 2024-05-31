@@ -165,7 +165,7 @@ namespace PokeManagement.Controllers
         public async Task<IActionResult> GetUser(string id)
         {
             ApplicationUser? user = await _userManager.FindByIdAsync(id);
-            return user == null ? BadRequest() : Ok(_mapper.ToBasicModel(user));
+            return user == null ? BadRequest() : Ok(await ToBasicModel(user));
         }
 
         [HttpGet, Route("GetAllUsers")]
@@ -257,7 +257,8 @@ namespace PokeManagement.Controllers
             Email = entity.Email ?? "",
             Name = entity.Name,
             Surname = entity.Surname,
-            Role = (await _userManager.GetRolesAsync(entity))[0]
+            Role = (await _userManager.GetRolesAsync(entity))[0],
+            IsDeleted = entity.IsDeleted  
         };
 
     }
