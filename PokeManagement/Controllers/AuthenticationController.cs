@@ -86,7 +86,7 @@ namespace PokeManagement.Controllers
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
-        //[Authorize(Roles = ApplicationRoles.Admin)]
+        [Authorize(Roles = ApplicationRoles.Admin)]
         [HttpPost]
         [Route("register-operator")]
         public async Task<IActionResult> RegisterOperator([FromBody] RegisterModel model)
@@ -120,7 +120,7 @@ namespace PokeManagement.Controllers
 
             return Ok(new Response { Status = "Success", Message = "Operator created successfully!" });
         }
-        //[Authorize(Roles = ApplicationRoles.Admin)]
+        [Authorize(Roles = ApplicationRoles.Admin)]
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
@@ -180,7 +180,7 @@ namespace PokeManagement.Controllers
 
             return Ok(usersModel);
         }
-
+        [Authorize(Roles =ApplicationRoles.Admin)]
         [HttpPut, Route("Edit")]
         public async Task<IActionResult> Put(UserBasicModel model)
         {

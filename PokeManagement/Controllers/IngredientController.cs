@@ -30,6 +30,7 @@ namespace PokeManagement.Controllers
             var prod = _managers.IngredientManager.GetById(id);
             return prod == null ? BadRequest("ingredient not found") : Ok(_mapper.ToModel(prod));
         }
+        [Authorize(Roles =ApplicationRoles.Admin)]
         [HttpPost, Route("Add")]
         public IActionResult Post([FromBody] IngredientModel model)
         {
@@ -43,6 +44,7 @@ namespace PokeManagement.Controllers
             _managers.IngredientManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("ingredient was not deleted");
         }
+        [Authorize(Roles =ApplicationRoles.Admin)]
         [HttpPut, Route("Edit")]
         public IActionResult Put([FromBody] IngredientModel model)
         {
