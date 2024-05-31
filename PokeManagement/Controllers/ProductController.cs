@@ -45,6 +45,7 @@ namespace PokeManagement.Controllers
             _managers.ProductManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("product was not deleted");
         }
+        [Authorize(Roles = ApplicationRoles.Admin)]
         [HttpPut,Route("Edit")]
         public IActionResult Put([FromBody]ProductModel model)
         {

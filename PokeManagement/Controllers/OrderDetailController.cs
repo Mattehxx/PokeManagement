@@ -37,13 +37,13 @@ namespace PokeManagement.Controllers
             return _managers.Commit() ? Created() : BadRequest("order detail was not created");
         }
         [Authorize(Roles = ApplicationRoles.Admin)]
-        [Authorize(Roles = ApplicationRoles.Operator)]
         [HttpDelete, Route("Delete/{id}")]
         public IActionResult Delete(int id)
         {
             _managers.OrderDetailManager.DeleteById(id);
             return _managers.Commit() ? Ok() : BadRequest("order detail was not deleted");
         }
+        [Authorize(Roles =ApplicationRoles.Operator)]
         [HttpPut, Route("Edit")]
         public IActionResult Put([FromBody] OrderDetailModel model)
         {
