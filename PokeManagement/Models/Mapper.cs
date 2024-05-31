@@ -259,7 +259,8 @@ namespace PokeManagement.Models
             IngredientId = entity.IngredientId,
             ProductId = entity.ProductId,
             IngredientName = entity.Ingredient?.Name ?? string.Empty,
-            IngredientPrice = entity.Ingredient == null ? 0 : entity.Ingredient.AdditionalCost
+            IngredientPrice = entity.Ingredient == null ? 0 : entity.Ingredient.AdditionalCost,
+            IsDeleted = entity.Ingredient == null ? false : entity.Ingredient.IsDeleted
         };
         public PersonalizationBasicModel ToBasicModel(Personalization entity) => new PersonalizationBasicModel
         {

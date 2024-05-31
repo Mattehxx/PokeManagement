@@ -10,5 +10,6 @@
         public int Amount { get; set; }
         public int MaxAllowed { get; set; }
         public bool IsIncluded { get; set; }
+        public bool IsDeleted {  get; set; }
     }
 }
